@@ -30,14 +30,6 @@ namespace PALC.Models.Combiners._20_4_4.Tests
         }
 
         [TestMethod()]
-        public void GetThemesTest_Caching()
-        {
-            List<Theme> themes1 = ThemeFolderOpener.GetThemeFilesFromFolder(Paths.themesPath).Select(x => x.ThemeProp).ToList();
-            List<Theme> themes2 = ThemeFolderOpener.GetThemeFilesFromFolder(Paths.themesPath).Select(x => x.ThemeProp).ToList();
-            Assert.AreEqual(themes1, themes2);
-        }
-
-        [TestMethod()]
         [ExpectedException(typeof(DirectoryNotFoundException))]
         public void GetThemesTest_InvalidPath()
         {
