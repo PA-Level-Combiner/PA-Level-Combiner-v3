@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 
 using Avalonia;
 using Avalonia.Browser;
-using Avalonia.ReactiveUI;
 
 using PALC;
 
@@ -11,10 +10,11 @@ using PALC;
 
 internal partial class Program
 {
+#pragma warning disable IDE0060 // Remove unused parameter
     private static async Task Main(string[] args) => await BuildAvaloniaApp()
             .WithInterFont()
-            .UseReactiveUI()
             .StartBrowserAppAsync("out");
+#pragma warning restore IDE0060 // Remove unused parameter
 
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<App>();

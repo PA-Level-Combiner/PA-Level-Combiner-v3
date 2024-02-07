@@ -1,0 +1,101 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        
+		xmlns:m="using:PALC.Models.Combiners._20_4_4"
+		xmlns:controls="using:PALC.Views.Templates"
+		xmlns:local="using:PALC.Views.Combiners._20_4_4"
+		xmlns:conv="using:PALC.Views.Combiners._20_4_4.Converters"
+		xmlns:vm="using:PALC.ViewModels.Combiners._20_4_4"
+		
+		x:Name="Window"
+		x:Class="PALC.Views.Combiners._20_4_4.MainV"
+		x:DataType="vm:MainVM"
+        Title="Combiner"
+		Width="1024" Height="576"
+		WindowStartupLocation="CenterScreen"
+		
+		Loaded="OnLoaded">
+
+	<Window.Resources>
+		<conv:LevelStartConverter x:Key="LevelStartConverter"/>
+		<conv:LevelMiddleConverter x:Key="LevelMiddleConverter"/>
+		<conv:LevelEndConverter x:Key="LevelEndConverter"/>
+	</Window.Resources>
+	
+
+	<Grid RowDefinitions="*, 5*"
+				  ColumnDefinitions="*">
+
+		<TextBlock Grid.Row="0"
+					Classes="title"
+					Text="20.4.4 COMBINER"/>
+
+		<Grid Grid.Row="1"
+				RowDefinitions="*, 4*, *, *"
+				ColumnDefinitions="*">
+			<controls:Browse Grid.Row="0"
+							 LabelText="Source Level Folder"
+							 Display="{Binding SourceDisplay, Mode=TwoWay}"
+							 ButtonClick="{Binding OnSetSourceCommand, ElementName=Window}"/>
+			<Grid Grid.Row="1"
+				  RowDefinitions="*, 4*"
+				  ColumnDefinitions="*">
+				<TextBlock Grid.Row="0"
+						   Classes="h1"
+						   Text="Level List"/>
+				<controls:LevelList Grid.Row="1"
+									AddItemCommand="{Binding OnAddLevelCommand, ElementName=Window}"
+									DeleteItemCommand="{Binding OnDeleteLevelCommand, ElementName=Window}">
+					<controls:LevelList.ListBox>
+						<ListBox ScrollViewer.HorizontalScrollBarVisibility="Auto"
+								 SelectionMode="Multiple"
+								 ItemsSource="{Binding LevelList, Mode=TwoWay}"
+								 SelectedItems="{Binding SelectedItems}">
+							<ListBox.ItemTemplate>
+								<DataTemplate DataType="{x:Type m:LevelFileInfo}">
+									<Grid RowDefinitions="*, 2*, *">
+										<TextBlock Grid.Row="0"
+												   Classes="caption"
+												   TextAlignment="Left"
+												   Text="{Binding Path, Converter={StaticResource LevelStartConverter}}"/>
+										<TextBlock Grid.Row="1"
+												   Classes="h3"
+												   TextAlignment="Left"
+												   FontWeight="Bold"
+												   Text="{Binding Path, Converter={StaticResource LevelMiddleConverter}}"/>
+										<TextBlock Grid.Row="2"
+												   Classes="caption"
+												   TextAlignment="Left"
+												   Text="{Binding Path, Converter={StaticResource LevelEndConverter}}"/>
+									</Grid>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+					</controls:LevelList.ListBox>
+				</controls:LevelList>
+			</Grid>
+
+			<controls:Browse Grid.Row="2"
+							 LabelText="Output Folder"
+							 Display="{Binding OutputFolderPath, Mode=TwoWay}"
+							 ButtonClick="{Binding OnSetOutputFolderPathCommand, ElementName=Window}"/>
+
+			<Grid Grid.Row="3"
+				  RowDefinitions="*"
+				  ColumnDefinitions="*, *, *">
+
+				<Button Grid.Column="0"
+						Content="Advanced Options..."
+						Command="{Binding OnAdvancedOptions, ElementName=Window}"/>
+				<Button Grid.Column="1"
+						Content="Documentation..."/>
+				<Button Grid.Column="2"
+						Content="Combine!"
+						Command="{Binding OnCombine, ElementName=Window}"/>
+			</Grid>
+		</Grid>
+	</Grid>
+</Window>

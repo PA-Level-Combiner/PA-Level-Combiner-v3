@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "PALC.Desktop": {
+      "commandName": "Project"
+    },
+    "PALC.Desktop UI Test": {
+      "commandName": "Project",
+      "commandLineArgs": "test"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    }
+  }
+}

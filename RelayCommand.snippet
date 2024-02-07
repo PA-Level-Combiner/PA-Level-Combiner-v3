@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Relay Command</Title>
+			<Author>TNTzx</Author>
+			<Description>Creates a Relay Command.</Description>
+			<Shortcut>rc</Shortcut>
+		</Header>
+		<Snippet>
+			<Code Language="CSharp">
+				<![CDATA[
+				private RelayCommand? _$func$Command;
+				public RelayCommand $func$Command => _$func$Command ??= new($func$);
+				]]>
+			</Code>
+			<Declarations>
+				<Literal>
+					<ID>func</ID>
+					<ToolTip>The name of the function.</ToolTip>
+					<Default>func</Default>
+				</Literal>
+			</Declarations>
+		</Snippet>
+	</CodeSnippet>
+
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Async Relay Command</Title>
+			<Author>TNTzx</Author>
+			<Description>Creates an Async Relay Command.</Description>
+			<Shortcut>rc</Shortcut>
+		</Header>
+		<Snippet>
+			<Code Language="CSharp">
+				<![CDATA[
+				private AsyncRelayCommand? _$func$Command;
+				public AsyncRelayCommand $func$Command => _$func$Command ??= new($func$);
+				]]>
+			</Code>
+			<Declarations>
+				<Literal>
+					<ID>func</ID>
+					<ToolTip>The name of the function.</ToolTip>
+					<Default>func</Default>
+				</Literal>
+			</Declarations>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

@@ -4,6 +4,7 @@
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <Configurations>Debug;Release;Design;Quick Build</Configurations>
   </PropertyGroup>
 
   
@@ -11,13 +12,46 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 
+  
+  <ItemGroup>
+    <AvaloniaResource Include="Views\Styles\Styles.axaml" />
+    <AvaloniaResource Include="Views\Templates\Browse.axaml" />
+    <AvaloniaResource Include="Views\Templates\Browse.axaml.cs" />
+    <AvaloniaResource Include="Views\Templates\CheckBoxSizeable.axaml" />
+    <AvaloniaResource Include="Views\Templates\CheckBoxSizeable.axaml.cs" />
+    <AvaloniaResource Include="Views\Templates\IncludeOptions.axaml" />
+    <AvaloniaResource Include="Views\Templates\IncludeOptions.axaml.cs" />
+    <AvaloniaResource Include="Views\Templates\LevelList.axaml" />
+    <AvaloniaResource Include="Views\Templates\LevelList.axaml.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.0.5" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.5" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.5" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.5" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.5" />
+    <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.5" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="MessageBox.Avalonia" Version="3.1.5.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Combiners\20_4_4\MainV.axaml.cs">
+      <DependentUpon>MainV.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Splash\Splash.axaml.cs">
+      <DependentUpon>Splash.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Templates\Browse.axaml.cs">
+      <DependentUpon>Browse.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Templates\LevelList.axaml.cs">
+      <DependentUpon>LevelList.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Templates\IncludeOptions.axaml.cs">
+      <DependentUpon>IncludeOptions.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

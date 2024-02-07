@@ -1,0 +1,66 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        
+		xmlns:views="using:PALC.Views"
+		xmlns:vm="using:PALC.ViewModels.Splash"
+		xmlns:controls="using:PALC.Views.Templates"
+
+        x:Class="PALC.Views.SplashV"
+		x:Name="Splash"
+		x:DataType="vm:SplashVM"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="PALC"
+		Width="640" Height="360"
+		WindowStartupLocation="CenterScreen">
+
+	<Grid RowDefinitions="3*, *, 0.2*, *"
+		  ColumnDefinitions="*">
+
+		<DockPanel Grid.Row="0">
+			<Grid VerticalAlignment="Center"
+				  RowDefinitions="2*, *">
+				<TextBlock Grid.Row="0"
+						   Classes="title"
+						   VerticalAlignment="Bottom"
+						   Text="PA LEVEL COMBINER"/>
+
+				<TextBlock Grid.Row="1"
+						   VerticalAlignment="Top"
+						   Text="Splash Text"/>
+			</Grid>
+		</DockPanel>
+
+
+
+		<Grid Grid.Row="1"
+			  RowDefinitions="*"
+			  ColumnDefinitions="1*, *"
+			  Margin="20 0 20 0">
+			<ComboBox Grid.Row="0"
+					  Grid.Column="0"
+					  SelectedIndex="{Binding SelectedIndex, ElementName=Splash}"
+					  ItemsSource="{Binding VersionChoicesDisplay, ElementName=Splash}"/>
+
+			<Button Grid.Row="0"
+					Grid.Column="1"
+					Content="Select This Version"
+					Command="{Binding OpenVersionCommand, ElementName=Splash}"
+					CommandParameter="{Binding SelectedIndex, ElementName=Splash}"/>
+		</Grid>
+
+		<Grid Grid.Row="3"
+			  RowDefinitions="*"
+			  ColumnDefinitions="1.75*, *, *">
+			<Button Grid.Column="0"
+					Content="Check for updates..."/>
+			<Button Grid.Column="1"
+					Content="Settings"/>
+			<Button Grid.Column="2"
+					Content="About"/>
+		</Grid>
+
+	</Grid>
+</Window>
