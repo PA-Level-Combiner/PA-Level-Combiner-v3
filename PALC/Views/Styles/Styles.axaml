@@ -65,6 +65,12 @@
 
 
 
+	<Style Selector="Window">
+		<Setter Property="Icon"
+				Value="/Assets/avalonia-logo.ico"/>
+	</Style>
+
+
 	<Style Selector="Grid">
 		<Setter Property="ShowGridLines"
 				Value="False"/>

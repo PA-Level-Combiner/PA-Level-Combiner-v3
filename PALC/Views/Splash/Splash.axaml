@@ -4,17 +4,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         
-		xmlns:views="using:PALC.Views"
+		xmlns:v="using:PALC.Views"
 		xmlns:vm="using:PALC.ViewModels.Splash"
 		xmlns:controls="using:PALC.Views.Templates"
 
         x:Class="PALC.Views.SplashV"
-		x:Name="Splash"
+		x:Name="Window"
 		x:DataType="vm:SplashVM"
         Icon="/Assets/avalonia-logo.ico"
         Title="PALC"
 		Width="640" Height="360"
-		WindowStartupLocation="CenterScreen">
+		WindowStartupLocation="CenterScreen"
+		
+		Loaded="OnLoaded">
 
 	<Grid RowDefinitions="3*, *, 0.2*, *"
 		  ColumnDefinitions="*">
@@ -24,12 +26,13 @@
 				  RowDefinitions="2*, *">
 				<TextBlock Grid.Row="0"
 						   Classes="title"
+						   FontSize="60"
 						   VerticalAlignment="Bottom"
 						   Text="PA LEVEL COMBINER"/>
 
 				<TextBlock Grid.Row="1"
 						   VerticalAlignment="Top"
-						   Text="Splash Text"/>
+						   Text="{Binding CurrentSplashText}"/>
 			</Grid>
 		</DockPanel>
 
@@ -41,14 +44,20 @@
 			  Margin="20 0 20 0">
 			<ComboBox Grid.Row="0"
 					  Grid.Column="0"
-					  SelectedIndex="{Binding SelectedIndex, ElementName=Splash}"
-					  ItemsSource="{Binding VersionChoicesDisplay, ElementName=Splash}"/>
+					  PlaceholderText="Select a version..."
+					  ItemsSource="{Binding VersionChoices, ElementName=Window}"
+					  SelectedItem="{Binding SelectedVersionChoice, ElementName=Window}">
+				<ComboBox.ItemTemplate>
+					<DataTemplate DataType="{x:Type v:VersionChoice}">
+						<TextBlock Text="{Binding DisplayText}"/>
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
 
 			<Button Grid.Row="0"
 					Grid.Column="1"
 					Content="Select This Version"
-					Command="{Binding OpenVersionCommand, ElementName=Splash}"
-					CommandParameter="{Binding SelectedIndex, ElementName=Splash}"/>
+					Command="{Binding OpenVersionCommand, ElementName=Window}"/>
 		</Grid>
 
 		<Grid Grid.Row="3"
