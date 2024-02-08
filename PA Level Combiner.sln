@@ -7,8 +7,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PALC.Browser", "PALC.Browser\PALC.Browser.csproj", "{A02A314B-2710-4E63-96FB-4112BDA7C887}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PALC.Desktop", "PALC.Desktop\PALC.Desktop.csproj", "{6017E01C-CAAA-4256-9A2F-3602030D9490}"
+	ProjectSection(ProjectDependencies) = postProject
+		{83A08D0C-1B47-4FD8-BE18-01DE8660302E} = {83A08D0C-1B47-4FD8-BE18-01DE8660302E}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PALC.Tests", "PALC.Tests1\PALC.Tests.csproj", "{E3D24F8D-6C0B-4122-B081-8F5BDD72AD97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PALCCrashHandler", "PALCCrashHandler\PALCCrashHandler.csproj", "{83A08D0C-1B47-4FD8-BE18-01DE8660302E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +44,12 @@ Global
 		{E3D24F8D-6C0B-4122-B081-8F5BDD72AD97}.Quick Build|Any CPU.ActiveCfg = Quick Build|Any CPU
 		{E3D24F8D-6C0B-4122-B081-8F5BDD72AD97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3D24F8D-6C0B-4122-B081-8F5BDD72AD97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83A08D0C-1B47-4FD8-BE18-01DE8660302E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83A08D0C-1B47-4FD8-BE18-01DE8660302E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83A08D0C-1B47-4FD8-BE18-01DE8660302E}.Quick Build|Any CPU.ActiveCfg = Debug|Any CPU
+		{83A08D0C-1B47-4FD8-BE18-01DE8660302E}.Quick Build|Any CPU.Build.0 = Debug|Any CPU
+		{83A08D0C-1B47-4FD8-BE18-01DE8660302E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83A08D0C-1B47-4FD8-BE18-01DE8660302E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

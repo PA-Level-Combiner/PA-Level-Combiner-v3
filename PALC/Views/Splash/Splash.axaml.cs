@@ -11,8 +11,9 @@ using Avalonia;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using PALC.Views.Templates;
+using PALC.Views.Splash.Inner;
 
-namespace PALC.Views;
+namespace PALC.Views.Splash;
 
 
 public class VersionChoice
@@ -65,5 +66,14 @@ public partial class SplashV : Window
         Hide();
         SelectedVersionChoice.combinerWindow().Show();
         Close();
+    }
+
+
+    private AsyncRelayCommand? _onAboutCommand = null;
+    public AsyncRelayCommand OnAboutCommand => _onAboutCommand ??= new(OnAbout);
+    public async Task OnAbout()
+    {
+        About window = new();
+        await window.ShowDialog(this);
     }
 }

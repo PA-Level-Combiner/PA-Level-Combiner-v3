@@ -5,12 +5,19 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 
-using PALC.Views;
+using PALC.Views.Splash;
+using Avalonia.Controls;
+using PALC.Views.Templates;
+using Avalonia.Threading;
+using Avalonia.Media;
+using Avalonia.Layout;
 
 namespace PALC;
 
 public partial class App : Application
 {
+    public SplashV? mainWindow = null;
+
     public override void Initialize()
     {
         SetupExceptionHandling();
@@ -21,35 +28,27 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new SplashV();
+            desktop.MainWindow = mainWindow ??= new();
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new SplashV();
+            singleViewPlatform.MainView = mainWindow ??= new();
         }
 
         base.OnFrameworkInitializationCompleted();
     }
 
 
-    private static void SetupExceptionHandling()
-    {
-        AppDomain.CurrentDomain.UnhandledException += (s, a) =>
-        {
-            ExceptionDispatchInfo.Capture((Exception)a.ExceptionObject).Throw();
-        };
 
+    private void SetupExceptionHandling()
+    {
         //Current.DispatcherUnhandledException += (s, a) =>
         //{
         //    HandleException(a.Exception);
         //    a.Handled = true;
         //};
 
-        TaskScheduler.UnobservedTaskException += (s, a) =>
-        {
-            var ex = a.Exception;
-            a.SetObserved();
-        };
+        // TaskScheduler.UnobservedTaskException += OnUnhandledException;
     }
 
 

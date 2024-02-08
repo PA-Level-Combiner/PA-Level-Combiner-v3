@@ -2,8 +2,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:sys="using:System">
 	<Design.PreviewWith>
-		<DockPanel Width="1080"
-				   Height="720">
+		<DockPanel Width="720"
+				   Height="480"
+				   Background="{StaticResource ColorBackground}">
 
 			<Grid RowDefinitions="*, *, *, *, *"
 				  ColumnDefinitions="*, *, *, *"
@@ -25,13 +26,18 @@
 
 				<Button Grid.Row="1"
 						Grid.Column="0"
+						Classes="primary"
 						Content="Button"/>
-				<TextBox Grid.Row="1"
-						 Grid.Column="1"
+				<Button Grid.Row="1"
+						Grid.Column="1"
+						Classes="secondary"
+						Content="Button"/>
+
+				<TextBox Grid.Row="2"
+						 Grid.Column="0"
 						 Text="Textbox"/>
-	
 				<ComboBox Grid.Row="2"
-						  Grid.Column="0"/>
+						  Grid.Column="1"/>
 
 				<CheckBox Grid.Row="3"
 						  Grid.Column="0"
@@ -43,13 +49,18 @@
 	
 	
 	<Styles.Resources>
-		<FontFamily x:Key="FontFamily">Inconsolata</FontFamily>
+		<FontFamily x:Key="FontFamily">Liberation Sans</FontFamily>
 		<sys:Double x:Key="NormalFontSize">18</sys:Double>
 		<sys:Double x:Key="h1FontSize">30</sys:Double>
 		<sys:Double x:Key="h2FontSize">20</sys:Double>
-		<sys:Double x:Key="captionFontSize">10</sys:Double>
+		<sys:Double x:Key="captionFontSize">14</sys:Double>
 		<sys:Double x:Key="TitleFontSize">40</sys:Double>
 		<Thickness x:Key="Margin">4</Thickness>
+
+		<Color x:Key="ColorForeground">#FFFFFF</Color>
+		<Color x:Key="ColorBackground">#F1D8D8</Color>
+		<Color x:Key="ColorPrimary">#292859</Color>
+		<Color x:Key="ColorSecondary">#893131</Color>
 	</Styles.Resources>
 	
 	
@@ -64,11 +75,13 @@
 	<FluentTheme/>
 
 
-
 	<Style Selector="Window">
 		<Setter Property="Icon"
-				Value="/Assets/avalonia-logo.ico"/>
+				Value="/Assets/palc_icon.ico"/>
+		<Setter Property="Background"
+				Value="{StaticResource ColorBackground}"/>
 	</Style>
+
 
 
 	<Style Selector="Grid">
@@ -137,6 +150,29 @@
 		<Setter Property="FontSize"
 				Value="{StaticResource NormalFontSize}"/>
 
+
+
+		<Style Selector="^.primary">
+			<Setter Property="Background"
+					Value="{StaticResource ColorPrimary}"/>
+			<Setter Property="Foreground"
+					Value="{StaticResource ColorForeground}"/>
+			<Setter Property="FontSize"
+					Value="{StaticResource h2FontSize}"/>
+			<Setter Property="FontWeight"
+					Value="Bold"/>
+		</Style>
+
+		<Style Selector="^.secondary">
+			<Setter Property="Background"
+					Value="{StaticResource ColorSecondary}"/>
+			<Setter Property="Foreground"
+					Value="{StaticResource ColorForeground}"/>
+			<Setter Property="FontSize"
+					Value="{StaticResource h2FontSize}"/>
+			<Setter Property="FontWeight"
+					Value="Bold"/>
+		</Style>
 	</Style>
 
 	

@@ -11,4 +11,5 @@
 		<StyleInclude Source="/Views/Templates/CheckBoxSizeable.axaml"/>
 		<StyleInclude Source="/Views/Templates/IncludeOptions.axaml"/>
 	</Application.Styles>
+
 </Application>
