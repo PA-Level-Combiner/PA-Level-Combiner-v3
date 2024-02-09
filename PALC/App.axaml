@@ -4,8 +4,7 @@
 			 RequestedThemeVariant="Light">
 
     <Application.Styles>
-		<StyleInclude Source="/Views/Styles/Styles.axaml"/>
-
+		<StyleInclude Source="avares://PALCCommon/Styles/Styles.axaml"/>
 		<StyleInclude Source="/Views/Templates/Browse.axaml"/>
 		<StyleInclude Source="/Views/Templates/LevelList.axaml"/>
 		<StyleInclude Source="/Views/Templates/CheckBoxSizeable.axaml"/>

@@ -1,16 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Runtime.ExceptionServices;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 
 using PALC.Views.Splash;
-using Avalonia.Controls;
-using PALC.Views.Templates;
-using Avalonia.Threading;
-using Avalonia.Media;
-using Avalonia.Layout;
 
 namespace PALC;
 

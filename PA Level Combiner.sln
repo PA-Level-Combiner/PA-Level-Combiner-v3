@@ -13,7 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PALC.Desktop", "PALC.Deskto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PALC.Tests", "PALC.Tests1\PALC.Tests.csproj", "{E3D24F8D-6C0B-4122-B081-8F5BDD72AD97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PALCCrashHandler", "PALCCrashHandler\PALCCrashHandler.csproj", "{83A08D0C-1B47-4FD8-BE18-01DE8660302E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PALCCrashHandler", "PALCCrashHandler\PALCCrashHandler.csproj", "{83A08D0C-1B47-4FD8-BE18-01DE8660302E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PALCUpdater", "PALCUpdater\PALCUpdater.csproj", "{A01008C4-38C9-4CBA-AE5A-59404F3BE1B3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PALCUpdater.Desktop", "PALCUpdater.Desktop\PALCUpdater.Desktop.csproj", "{B11FD672-1618-49C4-8244-C2F5D2DD937E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PALC.Common", "PALC.Common\PALC.Common.csproj", "{0ED55760-8B5F-47A8-A72E-BEB339AF5DF9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PALC.Common.Desktop", "PALC.Common.Desktop\PALC.Common.Desktop.csproj", "{FCFA890A-7D67-4B1C-A408-042351244DC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +58,30 @@ Global
 		{83A08D0C-1B47-4FD8-BE18-01DE8660302E}.Quick Build|Any CPU.Build.0 = Debug|Any CPU
 		{83A08D0C-1B47-4FD8-BE18-01DE8660302E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83A08D0C-1B47-4FD8-BE18-01DE8660302E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A01008C4-38C9-4CBA-AE5A-59404F3BE1B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A01008C4-38C9-4CBA-AE5A-59404F3BE1B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A01008C4-38C9-4CBA-AE5A-59404F3BE1B3}.Quick Build|Any CPU.ActiveCfg = Debug|Any CPU
+		{A01008C4-38C9-4CBA-AE5A-59404F3BE1B3}.Quick Build|Any CPU.Build.0 = Debug|Any CPU
+		{A01008C4-38C9-4CBA-AE5A-59404F3BE1B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A01008C4-38C9-4CBA-AE5A-59404F3BE1B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B11FD672-1618-49C4-8244-C2F5D2DD937E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B11FD672-1618-49C4-8244-C2F5D2DD937E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B11FD672-1618-49C4-8244-C2F5D2DD937E}.Quick Build|Any CPU.ActiveCfg = Debug|Any CPU
+		{B11FD672-1618-49C4-8244-C2F5D2DD937E}.Quick Build|Any CPU.Build.0 = Debug|Any CPU
+		{B11FD672-1618-49C4-8244-C2F5D2DD937E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B11FD672-1618-49C4-8244-C2F5D2DD937E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0ED55760-8B5F-47A8-A72E-BEB339AF5DF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ED55760-8B5F-47A8-A72E-BEB339AF5DF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ED55760-8B5F-47A8-A72E-BEB339AF5DF9}.Quick Build|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ED55760-8B5F-47A8-A72E-BEB339AF5DF9}.Quick Build|Any CPU.Build.0 = Debug|Any CPU
+		{0ED55760-8B5F-47A8-A72E-BEB339AF5DF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ED55760-8B5F-47A8-A72E-BEB339AF5DF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCFA890A-7D67-4B1C-A408-042351244DC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCFA890A-7D67-4B1C-A408-042351244DC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCFA890A-7D67-4B1C-A408-042351244DC5}.Quick Build|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCFA890A-7D67-4B1C-A408-042351244DC5}.Quick Build|Any CPU.Build.0 = Debug|Any CPU
+		{FCFA890A-7D67-4B1C-A408-042351244DC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCFA890A-7D67-4B1C-A408-042351244DC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

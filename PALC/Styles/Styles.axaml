@@ -1,0 +1,226 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:sys="using:System">
+	<Design.PreviewWith>
+		<DockPanel Width="720"
+				   Height="480"
+				   Background="{StaticResource ColorBackground}">
+
+			<Grid RowDefinitions="*, *, *, *, *"
+				  ColumnDefinitions="*, *, *, *"
+				  ShowGridLines="True">
+
+				<TextBlock Grid.Row="0"
+						   Grid.Column="0"
+						   Text="TextBlock"/>
+				<TextBlock Grid.Row="0"
+						   Grid.Column="1"
+						   Classes="h1"
+						   Text="TextBlock"/>
+				<TextBlock Grid.Row="0"
+						   Grid.Column="2"
+						   Grid.ColumnSpan="2"
+						   Classes="title"
+						   Text="TextBlock"/>
+
+
+				<Button Grid.Row="1"
+						Grid.Column="0"
+						Classes="primary"
+						Content="Button"/>
+				<Button Grid.Row="1"
+						Grid.Column="1"
+						Classes="secondary"
+						Content="Button"/>
+
+				<TextBox Grid.Row="2"
+						 Grid.Column="0"
+						 Text="Textbox"/>
+				<ComboBox Grid.Row="2"
+						  Grid.Column="1"/>
+
+				<CheckBox Grid.Row="3"
+						  Grid.Column="0"
+						  Content="Checkbox"/>
+			</Grid>
+		</DockPanel>
+	</Design.PreviewWith>
+	
+	
+	
+	<Styles.Resources>
+		<FontFamily x:Key="FontFamily">Liberation Sans</FontFamily>
+		<sys:Double x:Key="NormalFontSize">18</sys:Double>
+		<sys:Double x:Key="h1FontSize">30</sys:Double>
+		<sys:Double x:Key="h2FontSize">20</sys:Double>
+		<sys:Double x:Key="captionFontSize">14</sys:Double>
+		<sys:Double x:Key="TitleFontSize">40</sys:Double>
+		<Thickness x:Key="Margin">4</Thickness>
+
+		<Color x:Key="ColorForeground">#FFFFFF</Color>
+		<Color x:Key="ColorBackground">#F1D8D8</Color>
+		<Color x:Key="ColorPrimary">#292859</Color>
+		<Color x:Key="ColorSecondary">#893131</Color>
+	</Styles.Resources>
+	
+	
+
+	<Style Selector=":is(Control)">
+		<Setter Property="HorizontalAlignment"
+				Value="Stretch"/>
+		<Setter Property="VerticalAlignment"
+				Value="Stretch"/>
+	</Style>
+	
+	<FluentTheme/>
+
+
+	<Style Selector="Window">
+		<Setter Property="Icon"
+				Value="/Assets/palc_icon.ico"/>
+		<Setter Property="Background"
+				Value="{StaticResource ColorBackground}"/>
+	</Style>
+
+
+
+	<Style Selector="Grid">
+		<Setter Property="ShowGridLines"
+				Value="False"/>
+	</Style>
+
+	<Style Selector="TextBlock">
+		<Setter Property="FontFamily"
+				Value="{StaticResource FontFamily}"/>
+		<Setter Property="FontSize"
+				Value="{StaticResource NormalFontSize}"/>
+
+		<Setter Property="TextAlignment"
+				Value="Center"/>
+		<Setter Property="VerticalAlignment"
+				Value="Center"/>
+		<Setter Property="Margin"
+				Value="5"/>
+		
+		<Setter Property="TextWrapping"
+				Value="WrapWithOverflow"/>
+
+		<Style Selector="^.h1">
+			<Setter Property="FontSize"
+				Value="{StaticResource h1FontSize}"/>
+
+			<Setter Property="FontWeight"
+					Value="Bold"/>
+		</Style>
+
+		<Style Selector="^.h2">
+			<Setter Property="FontSize"
+				Value="{StaticResource h2FontSize}"/>
+
+			<Setter Property="FontWeight"
+					Value="Bold"/>
+		</Style>
+
+		<Style Selector="^.title">
+			<Setter Property="FontSize"
+					Value="{StaticResource TitleFontSize}"/>
+
+			<Setter Property="FontWeight"
+					Value="Bold"/>
+		</Style>
+
+		<Style Selector="^.caption">
+			<Setter Property="FontSize"
+					Value="{StaticResource captionFontSize}"/>
+		</Style>
+	</Style>
+
+	
+
+	<Style Selector="Button">
+		<Setter Property="HorizontalContentAlignment"
+				Value="Center"/>
+		<Setter Property="VerticalContentAlignment"
+				Value="Center"/>
+		<Setter Property="Margin"
+				Value="4"/>
+
+		<Setter Property="FontFamily"
+				Value="{StaticResource FontFamily}"/>
+		<Setter Property="FontSize"
+				Value="{StaticResource NormalFontSize}"/>
+
+
+
+		<Style Selector="^.primary">
+			<Setter Property="Background"
+					Value="{StaticResource ColorPrimary}"/>
+			<Setter Property="Foreground"
+					Value="{StaticResource ColorForeground}"/>
+			<Setter Property="FontSize"
+					Value="{StaticResource h2FontSize}"/>
+			<Setter Property="FontWeight"
+					Value="Bold"/>
+		</Style>
+
+		<Style Selector="^.secondary">
+			<Setter Property="Background"
+					Value="{StaticResource ColorSecondary}"/>
+			<Setter Property="Foreground"
+					Value="{StaticResource ColorForeground}"/>
+			<Setter Property="FontSize"
+					Value="{StaticResource h2FontSize}"/>
+			<Setter Property="FontWeight"
+					Value="Bold"/>
+		</Style>
+	</Style>
+
+	
+	
+	<Style Selector="TextBox">
+		<Setter Property="VerticalContentAlignment"
+				Value="Center"/>
+		<Setter Property="Margin"
+				Value="4"/>
+
+		<Setter Property="FontFamily"
+				Value="{StaticResource FontFamily}"/>
+		<Setter Property="FontSize"
+				Value="{StaticResource NormalFontSize}"/>
+		
+		<Setter Property="BorderThickness"
+				Value="3"/>
+	</Style>
+
+
+
+	<Style Selector="ComboBox">
+		<Setter Property="Margin"
+				Value="4"/>
+
+		<Setter Property="FontFamily"
+				Value="{StaticResource FontFamily}"/>
+		<Setter Property="FontSize"
+				Value="{StaticResource NormalFontSize}"/>
+		
+		<Setter Property="BorderThickness"
+				Value="3"/>
+	</Style>
+
+
+	<Style Selector="CheckBox">
+		<Setter Property="FontFamily"
+				Value="{StaticResource FontFamily}"/>
+		<Setter Property="FontSize"
+				Value="{StaticResource NormalFontSize}"/>
+		
+		<Setter Property="VerticalAlignment"
+				Value="Center"/>
+	</Style>
+
+
+	<Style Selector="Border">
+		<Setter Property="Margin"
+				Value="0"/>
+	</Style>
+</Styles>
