@@ -1,0 +1,101 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        
+		xmlns:v="using:PALC.Main.Views"
+		xmlns:vm="using:PALC.Main.ViewModels.Splash"
+		xmlns:local="using:PALC.Main.Views.Splash"
+		xmlns:controls="using:PALC.Main.Views.Templates"
+
+        x:Class="PALC.Main.Views.Splash.SplashV"
+		x:DataType="vm:SplashVM"
+		x:Name="Window"
+        Title="PALC"
+		Width="640" Height="480"
+		WindowStartupLocation="CenterScreen"
+		
+		Loaded="OnLoaded">
+
+
+	<Grid RowDefinitions="5*, *, 0.2*, *"
+		  ColumnDefinitions="*">
+		<Grid Grid.Row="0"
+			  Margin="10"
+			  RowDefinitions="2*, *"
+			  ColumnDefinitions="*">
+			<Image Grid.Row="0"
+				   Source="/Assets/palc_icon.ico"/>
+			<DockPanel Grid.Row="1">
+				<Grid VerticalAlignment="Center"
+					  RowDefinitions="2*, *, *">
+					<TextBlock Grid.Row="0"
+							   Classes="title"
+							   FontSize="40"
+							   Margin="0"
+							   Text="PA LEVEL COMBINER"/>
+					<TextBlock Grid.Row="1"
+							   Classes="caption"
+							   Margin="0"
+							   FontWeight="Bold"
+							   Text="{Binding Version}"/>
+
+					<TextBlock Grid.Row="2"
+							   Classes="caption"
+							   Text="{Binding CurrentSplashText}"/>
+				</Grid>
+			</DockPanel>
+		</Grid>
+
+
+
+
+		<Grid Grid.Row="1"
+			  RowDefinitions="*"
+			  ColumnDefinitions="*, *"
+			  Margin="20 0 20 0">
+			<ComboBox Grid.Column="0"
+					  PlaceholderText="Select a PA version..."
+					  ItemsSource="{Binding VersionChoices, ElementName=Window}"
+					  SelectedItem="{Binding SelectedVersionChoice, ElementName=Window}">
+				<ComboBox.ItemTemplate>
+					<DataTemplate DataType="{x:Type local:VersionChoice}">
+						<TextBlock Text="{Binding DisplayText}"/>
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
+
+			<Button Grid.Column="1"
+					Classes="primary"
+					Content="Select This Version"
+					Command="{Binding OpenVersionCommand, ElementName=Window}">
+			</Button>
+		</Grid>
+
+
+		<Separator Grid.Row="2"/>
+
+		<Grid Grid.Row="3"
+			  RowDefinitions="*"
+			  ColumnDefinitions="*, *">
+			<Button Grid.Column="0"
+					Content="Check for updates..."
+					IsEnabled="false"/>
+			<Button Grid.Column="2"
+					Classes="secondary"
+					Command="{Binding OnAboutCommand, ElementName=Window}">
+				<StackPanel>
+					<TextBlock Margin="1"
+							   Classes="h2"
+							   Text="About"/>
+					<TextBlock Margin="1"
+							   Classes="caption"
+							   FontSize="13"
+							   Text="Bug Reporting, Credits, Other Links"/>
+				</StackPanel>
+			</Button>
+		</Grid>
+
+	</Grid>
+</Window>

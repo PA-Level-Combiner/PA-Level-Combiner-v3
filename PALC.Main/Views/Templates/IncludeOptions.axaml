@@ -1,0 +1,47 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PALC.Main.Views.Templates">
+	<Design.PreviewWith>
+		<DockPanel Width="600"
+				   Height="800">
+			<controls:IncludeOptions />
+		</DockPanel>
+	</Design.PreviewWith>
+
+	<Style Selector="controls|IncludeOptions">
+		<Setter Property="Template">
+			<ControlTemplate TargetType="{x:Type controls:IncludeOptions}">
+				<Grid RowDefinitions="*, 3*"
+					  ColumnDefinitions="*">
+					<TextBlock Grid.Row="0"
+							   Classes="h2"
+							   TextAlignment="Center"
+							   Text="Combine the following to the source level:"/>
+					<Grid Grid.Row="1"
+						  HorizontalAlignment="Center"
+						  RowDefinitions="*, *, *, *, *, *"
+						  ColumnDefinitions="*">
+						<controls:CheckBoxSizeable Grid.Row="0"
+													IsChecked="{Binding BeatmapObjects, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+													Text="Beatmap Objects"/>
+						<controls:CheckBoxSizeable Grid.Row="1"
+													IsChecked="{Binding Prefabs, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+													Text="Prefabs"/>
+						<controls:CheckBoxSizeable Grid.Row="2"
+													IsChecked="{Binding Markers, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+													Text="Markers"/>
+						<controls:CheckBoxSizeable Grid.Row="3"
+													IsChecked="{Binding Checkpoints, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+													Text="Checkpoints"/>
+						<controls:CheckBoxSizeable Grid.Row="4"
+													IsChecked="{Binding EventKFs, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+													Text="Event Keyframes"/>
+						<controls:CheckBoxSizeable Grid.Row="5"
+													IsChecked="{Binding BGObjects, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+													Text="Background Objects"/>
+					</Grid>
+				</Grid>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+</Styles>

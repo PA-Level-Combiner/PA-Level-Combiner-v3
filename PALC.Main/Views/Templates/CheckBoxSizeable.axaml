@@ -1,0 +1,34 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PALC.Main.Views.Templates">
+	<Design.PreviewWith>
+		<DockPanel Width="800"
+				   Height="400">
+			<controls:CheckBoxSizeable HorizontalAlignment="Center"
+									   CheckBoxSize="60"
+									   IsChecked="True"
+									   Text="Test Test"/>
+		</DockPanel>
+	</Design.PreviewWith>
+
+	<Style Selector="controls|CheckBoxSizeable">
+		<Setter Property="Template">
+			<ControlTemplate TargetType="{x:Type controls:CheckBoxSizeable}">
+
+				<Grid RowDefinitions="*"
+					  ColumnDefinitions="*, 10*">
+
+					<Viewbox Grid.Column="0"
+							 Height="{TemplateBinding CheckBoxSize}"
+							 Width="{TemplateBinding CheckBoxSize}">
+						<CheckBox IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+					</Viewbox>
+					
+					<TextBlock Grid.Column="1"
+							   TextAlignment="Left"
+							   Text="{TemplateBinding Text}"/>
+				</Grid>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+</Styles>

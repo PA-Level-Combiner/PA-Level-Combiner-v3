@@ -1,0 +1,42 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d"
+		
+		xmlns:sys="using:System"
+		xmlns:vm="using:PALC.Main.ViewModels.Combiners._20_4_4"
+        
+		x:Name="Window"
+		x:Class="PALC.Main.Views.Combiners._20_4_4.Combining"
+		x:DataType="vm:CombiningVM"
+        Title="Combining..."
+		Width="512" Height="288"
+		WindowStartupLocation="CenterScreen"
+		
+		Loaded="OnLoad">
+
+	<Grid RowDefinitions="*, 3*, *"
+		  ColumnDefinitions="*">
+		<TextBlock Grid.Row="0"
+				   Classes="h2"
+				   Text="Combining..."/>
+
+		<ListBox Grid.Row="1"
+				 ItemsSource="{Binding Logs, Mode=TwoWay}">
+			<ListBox.ItemTemplate>
+				<DataTemplate DataType="{x:Type sys:String}">
+					<TextBlock Classes="caption"
+							   Margin="0"
+							   TextAlignment="Left"
+							   Text="{Binding}"/>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+		
+		<Button Grid.Row="2"
+				Content="Finish"
+				IsEnabled="{Binding EnableExit, Mode=TwoWay}"
+				Command="{Binding OnFinishClickCommand, ElementName=Window}"/>
+	</Grid>
+</Window>

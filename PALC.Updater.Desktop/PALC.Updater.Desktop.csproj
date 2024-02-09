@@ -14,6 +14,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\PALC.Common\PALC.Common.csproj" />
+		<ProjectReference Include="..\PALC.Updater\PALC.Updater.csproj" />
 	</ItemGroup>
 </Project>
