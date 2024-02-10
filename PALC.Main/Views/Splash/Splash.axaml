@@ -76,26 +76,19 @@
 
 		<Separator Grid.Row="2"/>
 
-		<Grid Grid.Row="3"
-			  RowDefinitions="*"
-			  ColumnDefinitions="*, *">
-			<Button Grid.Column="0"
-					Content="Check for updates..."
-					IsEnabled="false"/>
-			<Button Grid.Column="2"
-					Classes="secondary"
-					Command="{Binding OnAboutCommand, ElementName=Window}">
-				<StackPanel>
-					<TextBlock Margin="1"
-							   Classes="h2"
-							   Text="About"/>
-					<TextBlock Margin="1"
-							   Classes="caption"
-							   FontSize="13"
-							   Text="Bug Reporting, Credits, Other Links"/>
-				</StackPanel>
-			</Button>
-		</Grid>
 
+		<Button Grid.Row="3"
+				Classes="secondary"
+				Command="{Binding OnAboutCommand, ElementName=Window}">
+			<StackPanel>
+				<TextBlock Margin="1"
+							Classes="h2"
+							Text="About"/>
+				<TextBlock Margin="1"
+							Classes="caption"
+							FontSize="13"
+							Text="Bug Reporting, Credits, Other Links"/>
+			</StackPanel>
+		</Button>
 	</Grid>
 </Window>

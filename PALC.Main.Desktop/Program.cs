@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Runtime.ExceptionServices;
-using System.Threading.Tasks;
 using Avalonia;
-
-using PALC.Main;
 using System.Diagnostics;
 using System.Collections.Generic;
 

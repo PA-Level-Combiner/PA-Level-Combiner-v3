@@ -24,4 +24,10 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\PALC.Common\PALC.Common.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\MainV.axaml.cs">
+	    <DependentUpon>MainV.axaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
 </Project>

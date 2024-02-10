@@ -1,5 +1,4 @@
-﻿using Avalonia.Controls.Selection;
-using Avalonia.Platform.Storage;
+﻿using Avalonia.Platform.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PALC.Main.Models.Combiners._20_4_4;
@@ -7,9 +6,6 @@ using PALC.Main.Models.Combiners._20_4_4.LevelComponents;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace PALC.Main.ViewModels.Combiners._20_4_4;

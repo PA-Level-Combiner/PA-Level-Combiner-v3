@@ -1,10 +1,7 @@
 using Avalonia.Controls;
 using System.Threading.Tasks;
-
-using PALC.Main.Models.Combiners._20_4_4;
 using PALC.Main.ViewModels.Combiners._20_4_4;
 using PALC.Main.Views.Templates;
-using static PALC.Main.ViewModels.Combiners._20_4_4.MainVM;
 using static PALC.Main.ViewModels.Combiners._20_4_4.AdvancedOptionsVM;
 using CommunityToolkit.Mvvm.Input;
 

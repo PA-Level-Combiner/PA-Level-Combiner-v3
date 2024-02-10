@@ -1,0 +1,49 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+		
+		xmlns:v="using:PALC.Updater.Views"
+		xmlns:vm="using:PALC.Updater.ViewModels"
+
+        x:Class="PALC.Updater.Views.MainV"
+
+        Title="PALC Updater"
+		Width="480" Height="640">
+
+	<Grid RowDefinitions="*, Auto, 4*, Auto, 0.75*">
+		<Grid Grid.Row="0"
+			  Margin="10"
+			  HorizontalAlignment="Center"
+			  ColumnDefinitions="Auto, Auto">
+			<Image Grid.Column="0"
+				   Source="avares://PALC.Common/Assets/palc_icon.ico"/>
+			<TextBlock Grid.Column="1"
+					   Classes="title"
+					   Text="PALC Updater"/>
+		</Grid>
+		
+		
+		<Separator Grid.Row="1"/>
+
+		
+		<ListBox Grid.Row="2"/>
+		
+		
+		<Separator Grid.Row="3"/>
+
+
+
+		<Grid Grid.Row="4"
+			  ColumnDefinitions="*, *">
+			<Button Grid.Column="0"
+					Classes="primary"
+					Content="Run Selected Version"/>
+			
+			<Button Grid.Column="1"
+					Classes="secondary"
+					Content="Check For Updates"/>
+		</Grid>
+	</Grid>
+</Window>

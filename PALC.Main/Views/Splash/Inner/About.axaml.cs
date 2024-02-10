@@ -3,7 +3,6 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using CommunityToolkit.Mvvm.Input;
 using PALC.Main.ViewModels.Splash.Inner;
-using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace PALC.Main.Views.Splash.Inner;

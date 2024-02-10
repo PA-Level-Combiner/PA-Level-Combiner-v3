@@ -1,13 +1,9 @@
-﻿using System.Linq;
-
-using Avalonia.Controls;
-using MsBox.Avalonia;
+﻿using Avalonia.Controls;
 
 using PALC.Main.Models;
 using PALC.Main.ViewModels.Splash;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Avalonia;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using PALC.Main.Views.Templates;

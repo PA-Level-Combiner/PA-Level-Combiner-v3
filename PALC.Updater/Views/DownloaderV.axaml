@@ -1,0 +1,33 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+
+        xmlns:v="using:PALC.Updater.Views"
+		xmlns:vm="using:PALC.Updater.ViewModels"
+
+        x:Class="PALC.Updater.Views.DownloaderV"
+
+        Title="Download Versions?"
+		Width="480" Height="640">
+
+	<Grid RowDefinitions="*, 5*, *">
+		<TextBlock Grid.Row="0"
+				   Classes="h1"
+				   Text="DOWNLOAD NEW VERSIONS"/>
+
+		<ListBox Grid.Row="1"></ListBox>
+
+		<Grid Grid.Row="2"
+			  ColumnDefinitions="*, *">
+			<Button Grid.Column="0"
+					Classes="primary"
+					Content="Finished"/>
+			<Button Grid.Column="1"
+					Classes="secondary"
+					Content="Open releases page..."/>
+		</Grid>
+		
+	</Grid>
+</Window>

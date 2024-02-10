@@ -1,16 +1,8 @@
-﻿using Avalonia;
-using Avalonia.Controls.Documents;
-using Avalonia.Controls.Shapes;
-using Avalonia.Platform;
+﻿using Avalonia.Platform;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using PALC.Main.Models.Combiners._20_4_4.LevelComponents;
-using PALC.Main.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 
 namespace PALC.Main.ViewModels.Splash;
 

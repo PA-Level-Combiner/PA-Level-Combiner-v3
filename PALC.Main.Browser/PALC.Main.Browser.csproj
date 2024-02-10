@@ -17,6 +17,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\PALC.Main\PALC.Main.csproj" />
+		<ProjectReference Include="../PALC.Main/PALC.Main.csproj" />
 	</ItemGroup>
 </Project>

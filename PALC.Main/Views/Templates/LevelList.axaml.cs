@@ -1,6 +1,5 @@
 using Avalonia;
 using Avalonia.Controls;
-using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
 
 namespace PALC.Main.Views.Templates;
