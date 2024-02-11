@@ -1,0 +1,3 @@
+[submodule "PALC-Common"]
+	path = PALC-Common
+	url = https://github.com/PA-Level-Combiner/PALC-Common

@@ -29,9 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PALC.Updater", "PALC.Update
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PALC.Updater.Desktop", "PALC.Updater.Desktop\PALC.Updater.Desktop.csproj", "{B11FD672-1618-49C4-8244-C2F5D2DD937E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PALC.Common", "PALC.Common\PALC.Common.csproj", "{0ED55760-8B5F-47A8-A72E-BEB339AF5DF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PALC.Common", "PALC-Common\PALC.Common\PALC.Common.csproj", "{0ED55760-8B5F-47A8-A72E-BEB339AF5DF9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PALC.Common.Desktop", "PALC.Common.Desktop\PALC.Common.Desktop.csproj", "{FCFA890A-7D67-4B1C-A408-042351244DC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PALC.Common.Desktop", "PALC-Common\PALC.Common.Desktop\PALC.Common.Desktop.csproj", "{FCFA890A-7D67-4B1C-A408-042351244DC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
