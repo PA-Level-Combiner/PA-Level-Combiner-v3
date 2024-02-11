@@ -21,7 +21,7 @@ class Program
         }
         catch (Exception ex)
         {
-            string crashHandlerPath = "PALCCrashHandler.exe";
+            string crashHandlerPath = "CrashHandler\\PALC.CrashHandler.exe";
 
             List<string> crashArgs = new() {
                 Globals.PALCVersion,

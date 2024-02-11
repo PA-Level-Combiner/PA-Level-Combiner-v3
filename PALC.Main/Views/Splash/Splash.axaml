@@ -26,7 +26,7 @@
 			  RowDefinitions="2*, *"
 			  ColumnDefinitions="*">
 			<Image Grid.Row="0"
-				   Source="/Assets/palc_icon.ico"/>
+				   Source="avares://PALC.Common/Assets/palc_icon.ico"/>
 			<DockPanel Grid.Row="1">
 				<Grid VerticalAlignment="Center"
 					  RowDefinitions="2*, *, *">

@@ -13,7 +13,7 @@
 		x:DataType="vm:AboutVM"
 		x:Name="Window"
         Title="About"
-		Width="480" Height="640"
+		Width="480" Height="720"
 		WindowStartupLocation="CenterScreen">
 
 	<Window.Styles>
@@ -68,7 +68,7 @@
 
 	
 	
-	<Grid RowDefinitions="1.2*, Auto, *, Auto, 0.25*, Auto, *"
+	<Grid RowDefinitions="1.2*, Auto, 0.9*, Auto, 0.25*, Auto, 1.2*"
 		  ColumnDefinitions="*">
 		<Grid Grid.Row="0"
 			  Margin="10"
@@ -97,13 +97,17 @@
 
 
 		<Grid Grid.Row="2"
-			  RowDefinitions="*, 5*"
+			  VerticalAlignment="Center"
+			  RowDefinitions="Auto, Auto"
 			  ColumnDefinitions="*">
 			<TextBlock Grid.Row="0"
 					   FontSize="16">
-				<Run>Made by TNTz.</Run>
+				<Run>Primarily developed by //TNTz.</Run>
 				<InlineUIContainer>
-					<TextBlock Text="a"/>
+					<DockPanel LastChildFill="True"
+							   Height="20">
+						<Image Source="/Assets/tntz_icon.png"/>
+					</DockPanel>
 				</InlineUIContainer>
 			</TextBlock>
 
@@ -131,25 +135,42 @@
 
 
 		<Grid Grid.Row="4"
-			  HorizontalAlignment="Center"
-			  RowDefinitions="*"
-			  ColumnDefinitions="Auto, Auto">
-			<TextBlock Grid.Column="0"
-					   TextAlignment="Right"
-					   Text="Made with AvaloniaUI in C#."/>
+			  VerticalAlignment="Center"
+			  RowDefinitions="Auto, Auto">
+			<TextBlock Grid.Row="0"
+					   Margin="2"
+					   FontSize="16">
+				<Run>Built using AvaloniaUI in C#.</Run>
+				<InlineUIContainer>
+					<DockPanel LastChildFill="True"
+							   Height="20">
+						<Image Source="/Assets/avalonia-logo.ico"/>
+					</DockPanel>
+				</InlineUIContainer>
+			</TextBlock>
 
-			<Image Grid.Column="1"
-				   HorizontalAlignment="Left"
-				   Source="/Assets/avalonia-logo.ico"/>
+			<TextBlock Grid.Row="1"
+					   Margin="2"
+					   FontSize="16">
+				<InlineUIContainer>
+					<DockPanel LastChildFill="True"
+							   Height="20">
+						<Image Source="/Assets/pam_logo.png"/>
+					</DockPanel>
+				</InlineUIContainer>
+				<Run>A side project of the PA: Memories collab.</Run>
+			</TextBlock>
 		</Grid>
+
 
 
 		<Separator Grid.Row="5"/>
 
 		<Grid Grid.Row="6"
-				  VerticalAlignment="Center"
-				  RowDefinitions="*, *, *"
-				  ColumnDefinitions="*">
+			  VerticalAlignment="Center"
+			  RowDefinitions="*, *, *, *"
+			  ColumnDefinitions="*">
+				  
 			<local:LinkButton Grid.Row="0"
 							  ClassPrimary="True"
 							  Title="GITHUB PAGE"
@@ -162,6 +183,9 @@
 							  IsEnabled="False"
 							  Title="ONLINE COMBINER (by DXL44)"
 							  Link="Coming soon :)"/>
+			<Button Grid.Row="3"
+					Content="CRASH BUTTON (test out error reporting!)"
+					Command="{Binding CrashCommand}"/>
 		</Grid>
 	</Grid>
 </Window>

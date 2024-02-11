@@ -7,7 +7,7 @@
 		<Nullable>enable</Nullable>
 		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
-		<Configurations>Debug;Release;Design;Quick Build</Configurations>
+		<Configurations>Debug;Release;Design;Quick Build;Reload Design</Configurations>
 		<Version>$(Version)</Version>
 
 		<ApplicationIcon>palc_icon.ico</ApplicationIcon>
