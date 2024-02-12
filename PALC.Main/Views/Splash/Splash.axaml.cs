@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using System;
-using PALC.Main.Views.Templates;
 using PALC.Main.Views.Splash.Inner;
+using PALC.Common.Views.Templates;
 
 namespace PALC.Main.Views.Splash;
 

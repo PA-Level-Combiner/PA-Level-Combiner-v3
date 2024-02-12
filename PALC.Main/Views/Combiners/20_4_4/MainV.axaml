@@ -5,7 +5,7 @@
         mc:Ignorable="d"
         
 		xmlns:m="using:PALC.Main.Models.Combiners._20_4_4"
-		xmlns:controls="using:PALC.Main.Views.Templates"
+		xmlns:controls="using:PALC.Common.Views.Templates"
 		xmlns:local="using:PALC.Main.Views.Combiners._20_4_4"
 		xmlns:conv="using:PALC.Main.Views.Combiners._20_4_4.Converters"
 		xmlns:vm="using:PALC.Main.ViewModels.Combiners._20_4_4"

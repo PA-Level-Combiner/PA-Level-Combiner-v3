@@ -3,9 +3,8 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using CommunityToolkit.Mvvm.Input;
 using MsBox.Avalonia;
-
+using PALC.Common.Views.Templates;
 using PALC.Main.ViewModels.Combiners._20_4_4;
-using PALC.Main.Views.Templates;
 using static PALC.Main.ViewModels.Combiners._20_4_4.CombiningVM;
 
 namespace PALC.Main.Views.Combiners._20_4_4;

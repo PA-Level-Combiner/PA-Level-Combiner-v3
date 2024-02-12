@@ -5,10 +5,8 @@
 
     <Application.Styles>
 		<StyleInclude Source="avares://PALC.Common/Styles/Styles.axaml"/>
-		<StyleInclude Source="/Views/Templates/Browse.axaml"/>
-		<StyleInclude Source="/Views/Templates/LevelList.axaml"/>
-		<StyleInclude Source="/Views/Templates/CheckBoxSizeable.axaml"/>
-		<StyleInclude Source="/Views/Templates/IncludeOptions.axaml"/>
+		
+		<StyleInclude Source="avares://PALC.Common/Views/Templates/Templates.axaml" />
 	</Application.Styles>
 
 </Application>

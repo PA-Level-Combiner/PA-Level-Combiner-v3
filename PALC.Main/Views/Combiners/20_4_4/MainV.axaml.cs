@@ -7,9 +7,9 @@ using Avalonia.Platform.Storage;
 using PALC.Main.ViewModels.Combiners._20_4_4;
 using static PALC.Main.ViewModels.Combiners._20_4_4.MainVM;
 using static PALC.Main.ViewModels.Combiners._20_4_4.AdvancedOptionsVM;
-using PALC.Main.Views.Templates;
 using Avalonia.Interactivity;
 using MsBox.Avalonia;
+using PALC.Common.Views.Templates;
 
 namespace PALC.Main.Views.Combiners._20_4_4;
 
@@ -171,6 +171,7 @@ public partial class MainV : Window
         ).ShowWindowDialogAsync(this);
     }
 
+    // TODO do you even need relaycommands here
     private AsyncRelayCommand? _onCombineCommand;
     public AsyncRelayCommand OnCombineCommand => _onCombineCommand ??= new(OnCombine);
     public async Task OnCombine()

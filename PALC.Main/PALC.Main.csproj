@@ -19,17 +19,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<AvaloniaResource Include="Views\Templates\Browse.axaml" />
-		<AvaloniaResource Include="Views\Templates\Browse.axaml.cs" />
-		<AvaloniaResource Include="Views\Templates\CheckBoxSizeable.axaml" />
-		<AvaloniaResource Include="Views\Templates\CheckBoxSizeable.axaml.cs" />
-		<AvaloniaResource Include="Views\Templates\IncludeOptions.axaml" />
-		<AvaloniaResource Include="Views\Templates\IncludeOptions.axaml.cs" />
-		<AvaloniaResource Include="Views\Templates\LevelList.axaml" />
-		<AvaloniaResource Include="Views\Templates\LevelList.axaml.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Content Include="palc_icon.ico" />
 	</ItemGroup>
 
@@ -65,15 +54,6 @@
 		</Compile>
 		<Compile Update="Views\Splash\Splash.axaml.cs">
 			<DependentUpon>Splash.axaml</DependentUpon>
-		</Compile>
-		<Compile Update="Views\Templates\Browse.axaml.cs">
-			<DependentUpon>Browse.axaml</DependentUpon>
-		</Compile>
-		<Compile Update="Views\Templates\LevelList.axaml.cs">
-			<DependentUpon>LevelList.axaml</DependentUpon>
-		</Compile>
-		<Compile Update="Views\Templates\IncludeOptions.axaml.cs">
-			<DependentUpon>IncludeOptions.axaml</DependentUpon>
 		</Compile>
 	</ItemGroup>
 
