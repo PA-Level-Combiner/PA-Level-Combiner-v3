@@ -12,7 +12,6 @@ public partial class App : Application
 
     public override void Initialize()
     {
-        SetupExceptionHandling();
         AvaloniaXamlLoader.Load(this);
     }
 
@@ -29,26 +28,4 @@ public partial class App : Application
 
         base.OnFrameworkInitializationCompleted();
     }
-
-
-
-    private void SetupExceptionHandling()
-    {
-        //Current.DispatcherUnhandledException += (s, a) =>
-        //{
-        //    HandleException(a.Exception);
-        //    a.Handled = true;
-        //};
-
-        // TaskScheduler.UnobservedTaskException += OnUnhandledException;
-    }
-
-
-    //void OnUnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
-    //{
-    //    string errorMessage = $"An unhandled exception occurred: {e.Exception.Message}";
-    //    var msbox = MessageBoxManager.GetMessageBoxStandard("Error!", errorMessage);
-    //    msbox.ShowAsync();
-    //    throw new Exception(errorMessage);
-    //}
 }

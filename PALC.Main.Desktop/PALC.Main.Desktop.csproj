@@ -26,4 +26,8 @@
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="xcopy /y &quot;$(SolutionDir)PALC.CrashHandler\bin\$(ConfigurationName)\net7.0\*.*&quot; &quot;$(ProjectDir)bin\$(ConfigurationName)\net7.0\CrashHandler\&quot;" />
 	</Target>
+
+	<Target Name="CopyYourFolderAfterPublish" AfterTargets="Publish">
+		<Exec Command="xcopy /y &quot;$(SolutionDir)PALC.CrashHandler\bin\$(ConfigurationName)\net7.0\*.*&quot; &quot;$(PublishDir)\CrashHandler\&quot;" />
+	</Target>
 </Project>
