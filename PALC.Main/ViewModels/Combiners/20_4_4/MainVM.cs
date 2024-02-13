@@ -1,11 +1,15 @@
 ﻿using Avalonia.Platform.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using NLog;
 using PALC.Main.Models.Combiners._20_4_4;
+using PALC.Main.Models.Combiners._20_4_4.exceptions;
 using PALC.Main.Models.Combiners._20_4_4.LevelComponents;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace PALC.Main.ViewModels.Combiners._20_4_4;
@@ -13,6 +17,9 @@ namespace PALC.Main.ViewModels.Combiners._20_4_4;
 
 public partial class MainVM(AdvancedOptionsVM advancedOptionsVM) : ViewModelBase
 {
+    private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+
+
     public AdvancedOptionsVM advancedOptionsVM = advancedOptionsVM;
     public MainVM() : this(new AdvancedOptionsVM()) {}
 
@@ -23,31 +30,64 @@ public partial class MainVM(AdvancedOptionsVM advancedOptionsVM) : ViewModelBase
 
     public LevelFolder? SourceLevelFolder { get; set; }
     
-    public class InvalidSourceArgs
-    {
-        public required Exception ex;
-    }
-    public event AsyncEventHandler<InvalidSourceArgs>? InvalidSource;
+    public event AsyncEventHandler<DisplayGeneralErrorArgs>? InvalidSource;
 
     [RelayCommand]
     private async Task SetSource(string? path)
     {
+        _logger.Debug("Setting source tp {path}...", path);
+
         if (path == null)
         {
-            if (InvalidSource != null)
-                await InvalidSource(this, new InvalidSourceArgs { ex = new Exception("No path provided.") });
+            _logger.Error("No path provided.");
+            await AEHHelper.RunAEH(InvalidSource, this, new("There is no path provided.", null));
             return;
         }
 
+
+        _logger.Info("Loading source level folder {path}...", path);
         try
         {
             SourceLevelFolder = new LevelFolder(path);
             SourceDisplay = path;
         }
-        catch (Exception ex)
+        catch (Exception ex) when (
+            ex is UnauthorizedAccessException ||
+            ex is PathTooLongException
+        )
         {
-            if (InvalidSource != null)
-                await InvalidSource(this, new InvalidSourceArgs { ex = ex });
+            _logger.Error(ex, "Source level folder {path} cannot be accessed.", path);
+            await AEHHelper.RunAEH(InvalidSource, this, new(
+                "The source folder cannot be accessed. " + AdditionalErrors.noAccessHelp,
+                ex
+            ));
+
+            return;
+        }
+        catch (DirectoryNotFoundException ex)
+        {
+            _logger.Error(ex, "Source level folder {path} doesn't exist.", path);
+            await AEHHelper.RunAEH(InvalidSource, this, new(
+                "The source folder doesn't exist. ", ex
+            ));
+
+            return;
+        }
+        catch (FileNotFoundException ex)
+        {
+            _logger.Error("File {exFile} from source level folder {path} not found.", ex.FileName, path);
+            await AEHHelper.RunAEH(InvalidSource, this, new(
+                $"Cannot find the file \"{ex.FileName}\". ", ex
+            ));
+
+            return;
+        }
+        catch (JsonException ex)
+        {
+            _logger.Error(ex, "Failed trying to load JSON.");
+            await AEHHelper.RunAEH(InvalidSource, this, new(
+                "The JSON of a file inside the folder failed to load.", ex
+            ));
 
             return;
         }

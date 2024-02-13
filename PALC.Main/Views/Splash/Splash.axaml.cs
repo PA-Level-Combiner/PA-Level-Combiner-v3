@@ -8,6 +8,7 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using PALC.Main.Views.Splash.Inner;
 using PALC.Common.Views.Templates;
+using System.ComponentModel;
 
 namespace PALC.Main.Views.Splash;
 
@@ -52,7 +53,7 @@ public partial class SplashV : Window
 
 
     [RelayCommand]
-    public async Task OpenVersion()
+    private async Task OpenVersion()
     {
         if (SelectedVersionChoice == null) {
             await MessageBoxTools.CreateErrorMsgBox("You have not selected a version.").ShowWindowDialogAsync(this);

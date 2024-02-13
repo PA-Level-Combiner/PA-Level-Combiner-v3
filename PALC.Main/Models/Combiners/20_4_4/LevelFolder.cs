@@ -17,7 +17,7 @@ public class LevelFolder
 
         audioPath = Path.Combine(levelFolderPath, "level.ogg");
         if (!File.Exists(audioPath))
-            throw new exceptions.AudioFileNotFoundException();
+            throw new FileNotFoundException(null, fileName: audioPath);
 
         metadata = Metadata.FromFileJson(
             File.ReadAllText(Path.Combine(levelFolderPath, "metadata.lsb"))

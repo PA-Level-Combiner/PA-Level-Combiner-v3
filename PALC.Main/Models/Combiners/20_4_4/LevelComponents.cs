@@ -180,9 +180,7 @@ namespace PALC.Main.Models.Combiners._20_4_4.LevelComponents
             => FromFileJson(File.ReadAllText(path));
 
         public string ToFileJson()
-        {
-            return JsonConvert.SerializeObject(this, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
-        }
+            => JsonConvert.SerializeObject(this, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
 
         public List<string> GetThemeIdsUsed() => events.theme.Select(data => data.x).ToList();
         public List<string> GetCustomThemeIdsUsed() => ThemeFolderOpener.FilterDefaultIds(GetThemeIdsUsed());
