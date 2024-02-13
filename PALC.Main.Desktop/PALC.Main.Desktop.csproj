@@ -23,11 +23,13 @@
 		<ProjectReference Include="..\PALC.Main\PALC.Main.csproj" />
 	</ItemGroup>
 
+	
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="xcopy /y &quot;$(SolutionDir)PALC.CrashHandler\bin\$(ConfigurationName)\net7.0\*.*&quot; &quot;$(ProjectDir)bin\$(ConfigurationName)\net7.0\CrashHandler\&quot;" />
 	</Target>
 
 	<Target Name="CopyYourFolderAfterPublish" AfterTargets="Publish">
 		<Exec Command="xcopy /y &quot;$(SolutionDir)PALC.CrashHandler\bin\$(ConfigurationName)\net7.0\*.*&quot; &quot;$(PublishDir)\CrashHandler\&quot;" />
+		<Exec Command="powershell -nologo -noprofile &quot;cd -LiteralPath '$(ProjectDir)$(PublishDir)\' ; $file = '..\PALC.Desktop.zip' ; If (Test-Path $file) { Remove-Item $file -verbose } Else { echo 'File not found' } ; compress-archive -force -path * -destinationpath ..\PALC.Desktop.zip&quot;" />
 	</Target>
 </Project>
