@@ -16,7 +16,6 @@ class Program
     public static void Main(string[] args) {
         try
         {
-            _logger.Info("Test!");
             BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
         }
         catch (Exception ex)
@@ -24,7 +23,8 @@ class Program
             string crashHandlerPath = "CrashHandler\\PALC.CrashHandler.exe";
 
             List<string> crashArgs = new() {
-                Globals.PALCVersion,
+                Globals.programName,
+                ProgramInfo.GetProgramVersion()?.ToString() ?? "Unknown version",
                 Globals.logsPath,
                 Globals.githubIssuesLink,
                 ex.Message,

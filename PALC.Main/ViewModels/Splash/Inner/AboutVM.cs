@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Semver;
 using System;
 
 namespace PALC.Main.ViewModels.Splash.Inner;
@@ -6,7 +7,7 @@ namespace PALC.Main.ViewModels.Splash.Inner;
 
 public partial class AboutVM : ViewModelBase
 {
-    public static string Version => Globals.PALCVersion;
+    public static SemVersion? Version => ProgramInfo.GetProgramVersion();
 
     public static string GithubLink => Globals.githubLink;
     public static string GithubIssuesLink => Globals.githubIssuesLink;

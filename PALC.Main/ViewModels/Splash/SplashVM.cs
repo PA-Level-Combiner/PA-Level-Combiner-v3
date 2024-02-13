@@ -1,5 +1,6 @@
 ﻿using Avalonia.Platform;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Semver;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +12,7 @@ namespace PALC.Main.ViewModels.Splash;
 
 public partial class SplashVM : ViewModelBase
 {
-    public static string Version => Globals.PALCVersion;
+    public static SemVersion? Version => ProgramInfo.GetProgramVersion();
 
 
     private readonly Random randomizer = new(DateTime.Now.ToString().GetHashCode());
