@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -35,7 +36,7 @@ public partial class MainVM(AdvancedOptionsVM advancedOptionsVM) : ViewModelBase
     [RelayCommand]
     private async Task SetSource(string? path)
     {
-        _logger.Debug("Setting source tp {path}...", path);
+        _logger.Info("Setting source level to {path}...", path);
 
         if (path == null)
         {
@@ -97,16 +98,14 @@ public partial class MainVM(AdvancedOptionsVM advancedOptionsVM) : ViewModelBase
 
     public ObservableCollection<LevelFileInfo> LevelList { get; } = [];
     
-    public class InvalidLevelArgs
-    {
-        public required Exception ex;
-        public required string failedLevelPath;
-    }
-    public event AsyncEventHandler<InvalidLevelArgs>? InvalidLevel;
+
+    public event AsyncEventHandler<DisplayGeneralErrorArgs>? InvalidLevel;
 
     [RelayCommand]
     private async Task AddLevels(IReadOnlyList<IStorageFile> files)
     {
+        _logger.Info("Adding levels {files}...", files.Select(x => x.Path));
+
         foreach (var file in files)
         {
             var path = file.Path.LocalPath;
@@ -116,10 +115,48 @@ public partial class MainVM(AdvancedOptionsVM advancedOptionsVM) : ViewModelBase
                 var level = Level.FromFile(path);
                 LevelList.Add(new LevelFileInfo { LevelProp = level, Path = path });
             }
+            catch (Exception ex) when (
+                ex is UnauthorizedAccessException ||
+                ex is PathTooLongException
+            )
+            {
+                _logger.Warn(ex, "Level file {filePath} cannot be accessed. Skipping...", file.Path);
+                await AEHHelper.RunAEH(InvalidSource, this, new(
+                    $"The level \"{file.Path}\" cannot be accessed. " + AdditionalErrors.noAccessHelp,
+                    ex
+                ));
+
+                continue;
+            }
+            catch (Exception ex) when (
+                ex is DirectoryNotFoundException ||
+                ex is FileNotFoundException
+            )
+            {
+                _logger.Warn(ex, "Level file {filePath} doesn't exist. Skipping...", file.Path);
+                await AEHHelper.RunAEH(InvalidSource, this, new(
+                     $"The level \"{file.Path}\" doesn't exist. ", ex
+                ));
+
+                continue;
+            }
+            catch (JsonException ex)
+            {
+                _logger.Warn(ex, "Failed trying to load JSON of file {filePath}.", file.Path);
+                await AEHHelper.RunAEH(InvalidSource, this, new(
+                    $"The level \"{file.Path}\" has corrupt JSON and failed to load.", ex
+                ));
+
+                continue;
+            }
             catch (Exception ex)
             {
-                if (InvalidLevel != null) await InvalidLevel(this, new InvalidLevelArgs { ex = ex, failedLevelPath = path});
-                return;
+                _logger.Warn(ex, "The file {filePath} failed to load. Skipping...", file.Path);
+                await AEHHelper.RunAEH(InvalidSource, this, new(
+                    $"The level \"{file.Path}\" failed to load.", ex
+                ));
+
+                continue;
             }
         }
     }
@@ -140,19 +177,18 @@ public partial class MainVM(AdvancedOptionsVM advancedOptionsVM) : ViewModelBase
     [ObservableProperty]
     public string? outputFolderPath = null;
 
-    public class InvalidOutputFolderPathArgs
-    {
-        public required Exception ex;
-    }
-    public event AsyncEventHandler<InvalidOutputFolderPathArgs>? InvalidOutputFolderPath;
+
+    public event AsyncEventHandler<DisplayGeneralErrorArgs>? InvalidOutputFolderPath;
 
     [RelayCommand]
     private async Task SetOutputFolderPath(string? path)
     {
+        _logger.Info("Setting output folder path to {path}...", path);
+
         if (path == null)
         {
-            if (InvalidOutputFolderPath != null)
-                await InvalidOutputFolderPath(this, new InvalidOutputFolderPathArgs { ex = new Exception("No path provided.") });
+            _logger.Error("No path provided.");
+            await AEHHelper.RunAEH(InvalidSource, this, new("There is no path provided.", null));
             return;
         }
 
@@ -161,11 +197,8 @@ public partial class MainVM(AdvancedOptionsVM advancedOptionsVM) : ViewModelBase
 
 
 
-    public class MissingFieldsArgs
-    {
-        public required List<string> fields;
-    }
-    public event AsyncEventHandler<MissingFieldsArgs>? MissingFields;
+
+    public event AsyncEventHandler<List<string>>? MissingFields;
 
     public async Task<bool> AreFieldsFilled()
     {
@@ -178,7 +211,7 @@ public partial class MainVM(AdvancedOptionsVM advancedOptionsVM) : ViewModelBase
         if (missingFields.Count > 0)
         {
             if (MissingFields != null)
-                await MissingFields(this, new MissingFieldsArgs { fields = missingFields });
+                await MissingFields(this, missingFields);
             return false;
         }
 

@@ -172,6 +172,9 @@ namespace PALC.Main.Models.Combiners._20_4_4.LevelComponents
         }
     }
     public class Level : level.Root, IJsonConverter<Level> {
+        public static readonly string defaultFileName = "level.lsb";
+
+
         public static Level FromFileJson(string json)
             => JsonConvert.DeserializeObject<Level>(json)
                 ?? throw new JsonException();
@@ -343,6 +346,9 @@ namespace PALC.Main.Models.Combiners._20_4_4.LevelComponents
 
     }
     public class Metadata : metadata.Rootobject, IJsonConverter<Metadata> {
+        public static readonly string defaultFileName = "metadata.lsb";
+
+
         public static Metadata FromFileJson(string json)
             => JsonConvert.DeserializeObject<Metadata>(json) ?? throw new JsonException();
 
@@ -351,5 +357,11 @@ namespace PALC.Main.Models.Combiners._20_4_4.LevelComponents
 
         public string ToFileJson()
             => JsonConvert.SerializeObject(this);
+    }
+
+
+    public static class Audio
+    {
+        public static readonly string defaultFileName = "level.ogg";
     }
 }
