@@ -1,3 +1,6 @@
 [submodule "PALC-Common"]
 	path = PALC.Common
 	url = https://github.com/PA-Level-Combiner/PALC-Common
+[submodule "PALC.CrashHandler"]
+	path = PALC.CrashHandler
+	url = https://github.com/PA-Level-Combiner/PALC.CrashHandler
