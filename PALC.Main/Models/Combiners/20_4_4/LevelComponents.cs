@@ -64,7 +64,7 @@ namespace PALC.Main.Models.Combiners._20_4_4.LevelComponents
             {
                 if (!folderThemeDict.TryGetValue(themeId, out Theme? theme))
                 {
-                    throw new Exceptions.ThemeInFolderNotFoundException(themeId);
+                    throw new ThemeInFolderNotFoundException(themeId);
                 }
 
                 output.Add(theme ?? throw new Exception());
