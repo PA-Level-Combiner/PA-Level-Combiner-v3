@@ -17,7 +17,7 @@ namespace PALC.Main.Models.Combiners._20_4_4.Exceptions
     }
 
     public class JsonLoadException(string path, Exception? inner = null)
-        : Exception($"JSON failed to load for path \"{path}\".{(inner != null ? $" {inner.InnerException}" : "")}", inner)
+        : Exception($"JSON failed to load for path \"{path}\".{(inner != null ? $" {inner.Message}" : "")}", inner)
     {
         public readonly string path = path;
     }

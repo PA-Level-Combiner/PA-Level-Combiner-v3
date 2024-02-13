@@ -15,7 +15,7 @@ namespace PALC.Main.ViewModels.Combiners._20_4_4;
 
 public partial class CombiningVM : ViewModelBase
 {
-    private static Logger _logger = LogManager.GetCurrentClassLogger();
+    private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
 
     public CombiningVM(
@@ -192,7 +192,7 @@ public partial class CombiningVM : ViewModelBase
 
             var themeFile = cache[theme.EventThemeId];
             var filename = Path.GetFileName(themeFile.Path);
-            var filePath = Path.Combine(themesPath, filename)
+            var filePath = Path.Combine(themesPath, filename);
             CreateLog($"Writing {filename}...");
 
             try
@@ -212,10 +212,10 @@ public partial class CombiningVM : ViewModelBase
 
 
         CreateLog("Writing level file...");
-        string levelPath = Path.Join(levelFolderPath, Level.defaultFileName);
+        string levelPath = Path.Combine(levelFolderPath, Level.defaultFileName);
         try
         {
-            File.WriteAllText(levelFolderPath, combined.level.ToFileJson());
+            File.WriteAllText(levelPath, combined.level.ToFileJson());
         }
         catch (Exception ex) when (ErrorHelper.IsFileException(ex))
         {
@@ -229,7 +229,7 @@ public partial class CombiningVM : ViewModelBase
 
 
         CreateLog("Writing metadata...");
-        string metadataPath = Path.Join(levelFolderPath, "metadata.lsb");
+        string metadataPath = Path.Combine(levelFolderPath, Metadata.defaultFileName);
         try
         {
             File.WriteAllText(metadataPath, combined.metadata.ToFileJson());
@@ -246,7 +246,7 @@ public partial class CombiningVM : ViewModelBase
 
 
         CreateLog("Copying audio...");
-        string audioPath = Path.Join(levelFolderPath, "audio.ogg");
+        string audioPath = Path.Combine(levelFolderPath, Audio.defaultFileName);
         try
         {
             File.Copy(combined.audioPath, audioPath, true);

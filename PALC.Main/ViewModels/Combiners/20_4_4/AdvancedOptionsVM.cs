@@ -14,7 +14,7 @@ namespace PALC.Main.ViewModels.Combiners._20_4_4;
 
 public partial class AdvancedOptionsVM : ViewModelBase
 {
-    private static Logger _logger = LogManager.GetCurrentClassLogger();
+    private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
 
     [ObservableProperty]

@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PALC.Main.Models.Combiners._20_4_4.LevelComponents;
 
 namespace PALC.Main.Models.Combiners._20_4_4.Tests;
 
@@ -33,7 +35,7 @@ public class LevelFolderTests
 
         // Audio
         Assert.AreEqual(
-            Path.Combine(levelFolderPath, "level.ogg"),
+            Path.Combine(levelFolderPath, Audio.defaultFileName),
             levelFolder.audioPath
         );
 
@@ -49,7 +51,7 @@ public class LevelFolderTests
         }
 
         // Metadata
-        string rawMetadata = File.ReadAllText(Path.Combine(levelFolderPath, "metadata.lsb"));
+        string rawMetadata = File.ReadAllText(Path.Combine(levelFolderPath, LevelComponents.Metadata.defaultFileName));
         string loadedMetadata = levelFolder.metadata.ToFileJson();
         Assert.AreEqual(rawMetadata, loadedMetadata);
     }

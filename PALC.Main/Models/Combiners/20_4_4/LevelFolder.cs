@@ -11,16 +11,12 @@ public class LevelFolder
 
     public LevelFolder(string levelFolderPath)
     {
-        var levelFile = File.ReadAllText(Path.Join(levelFolderPath, "level.lsb"));
+        level = Level.FromFile(Path.Join(levelFolderPath, Level.defaultFileName));
 
-        level = Level.FromFileJson(levelFile);
-
-        audioPath = Path.Combine(levelFolderPath, "level.ogg");
+        audioPath = Path.Combine(levelFolderPath, Audio.defaultFileName);
         if (!File.Exists(audioPath))
             throw new FileNotFoundException(null, fileName: audioPath);
 
-        metadata = Metadata.FromFileJson(
-            File.ReadAllText(Path.Combine(levelFolderPath, "metadata.lsb"))
-        );
+        metadata = Metadata.FromFile(Path.Combine(levelFolderPath, Metadata.defaultFileName));
     }
 }

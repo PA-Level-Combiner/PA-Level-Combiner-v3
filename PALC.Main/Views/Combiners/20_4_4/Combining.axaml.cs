@@ -20,10 +20,13 @@ public partial class Combining : Window
         DataContext = vm;
 
         vm.Finished += OnFinished;
-        vm.CombineError += CombineError;
+        vm.CombineError += OnDisplayGeneralError;
     }
-
     public Combining() : this(new CombiningVM()) { }
+
+
+    public async Task OnDisplayGeneralError(object? sender, DisplayGeneralErrorArgs e)
+        => await MessageBoxTools.CreateErrorMsgBox(e).ShowWindowDialogAsync(this);
 
 
     public async void OnLoad(object? sender, RoutedEventArgs e) => await vm.Combine();
@@ -36,11 +39,6 @@ public partial class Combining : Window
             "Finished!",
             icon: MsBox.Avalonia.Enums.Icon.Success
         ).ShowWindowDialogAsync(this);
-    }
-
-    private async Task CombineError(object? sender, CombineErrorArgs e)
-    {
-        await MessageBoxTools.CreateErrorMsgBox(e.message, e.ex).ShowWindowDialogAsync(this);
     }
 
 

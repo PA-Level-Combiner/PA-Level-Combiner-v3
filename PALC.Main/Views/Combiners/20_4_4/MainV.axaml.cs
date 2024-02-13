@@ -10,6 +10,7 @@ using static PALC.Main.ViewModels.Combiners._20_4_4.AdvancedOptionsVM;
 using Avalonia.Interactivity;
 using MsBox.Avalonia;
 using PALC.Common.Views.Templates;
+using System.Collections.Generic;
 
 namespace PALC.Main.Views.Combiners._20_4_4;
 
@@ -24,41 +25,22 @@ public partial class MainV : Window
         vm = new MainVM();
         DataContext = vm;
 
-        vm.InvalidLevel += OnInvalidLevel;
-        vm.InvalidSource += OnInvalidSourceLevelFolder;
+        vm.InvalidLevel += OnDisplayGeneralError;
+        vm.InvalidSource += OnDisplayGeneralError;
 
-        vm.advancedOptionsVM.InitialThemeLoadFailed += OnDefaultThemesLoadFailed;
+        vm.advancedOptionsVM.InitialThemeLoadFailed += OnDisplayGeneralError;
 
         vm.MissingFields += OnMissingFields;
     }
 
 
-    public async Task OnDefaultThemesLoadFailed(object? sender, ThemesLoadFailedArgs e)
-    {
-        var msg = MessageBoxTools.CreateErrorMsgBox(
-            $"An error occurred while automatically loading the default theme path ({vm.advancedOptionsVM.defaultThemesPath}). " +
-            $"Please set a theme path in the \"Advanced Options\" button.",
-            e.ex
-        );
-        await msg.ShowWindowDialogAsync(this);
-    }
+    public async Task OnDisplayGeneralError(object? sender, DisplayGeneralErrorArgs e)
+        => await MessageBoxTools.CreateErrorMsgBox(e).ShowWindowDialogAsync(this);
+
 
     public async void OnLoaded(object? sender, RoutedEventArgs e)
     {
         await vm.advancedOptionsVM.LoadDefaultThemes();
-    }
-    
-
-
-    public async Task OnInvalidSourceLevelFolder(object? sender, InvalidSourceArgs e)
-    {
-        var msg = MessageBoxTools.CreateErrorMsgBox(
-            $"The selected source folder is invalid.",
-            e.ex
-        );
-        await msg.ShowWindowDialogAsync(this);
-
-        await OnSetSourceCommand.ExecuteAsync(null);
     }
 
     // TODO source generators are unreliable in visual studio so if anyone can help me out to use [RelayCommand] that'd be great
@@ -75,15 +57,6 @@ public partial class MainV : Window
     }
 
 
-
-    public async Task OnInvalidLevel(object? sender, InvalidLevelArgs e)
-    {
-        await MessageBoxTools.CreateErrorMsgBox(
-            $"The level \"{e.failedLevelPath}\" cannot be loaded.\n\n", e.ex)
-        .ShowWindowDialogAsync(this);
-
-        await OnAddLevelCommand.ExecuteAsync(null);
-    }
 
     private AsyncRelayCommand? _onAddLevelCommand;
     public AsyncRelayCommand OnAddLevelCommand => _onAddLevelCommand ??= new(OnAddLevel);
@@ -130,17 +103,6 @@ public partial class MainV : Window
 
 
 
-    public async Task OnInvalidOutputFolder(object? sender, InvalidSourceArgs e)
-    {
-        var msg = MessageBoxTools.CreateErrorMsgBox(
-            $"The selected output folder is invalid.",
-            e.ex
-        );
-        await msg.ShowWindowDialogAsync(this);
-
-        await OnSetOutputFolderPathCommand.ExecuteAsync(null);
-    }
-
     private AsyncRelayCommand? _onSetOutputFolderPathCommand;
     public AsyncRelayCommand OnSetOutputFolderPathCommand => _onSetOutputFolderPathCommand ??= new(OnSetOutputFolderPath);
     public async Task OnSetOutputFolderPath()
@@ -163,11 +125,11 @@ public partial class MainV : Window
     }
 
 
-    private async Task OnMissingFields(object? sender, MissingFieldsArgs e)
+    private async Task OnMissingFields(object? sender, List<string> e)
     {
         await MessageBoxTools.CreateErrorMsgBox(
             $"The following fields aren't filled out yet:\n" +
-            string.Join(", ", e.fields)
+            string.Join(", ", e)
         ).ShowWindowDialogAsync(this);
     }
 
