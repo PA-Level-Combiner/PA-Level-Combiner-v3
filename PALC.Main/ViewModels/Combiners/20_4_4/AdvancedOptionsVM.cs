@@ -1,16 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-
+using NLog;
+using PALC.Main.Models;
 using PALC.Main.Models.Combiners._20_4_4;
+using PALC.Main.Models.Combiners._20_4_4.Exceptions;
 using PALC.Main.Models.Combiners._20_4_4.LevelComponents;
 
 namespace PALC.Main.ViewModels.Combiners._20_4_4;
 
 public partial class AdvancedOptionsVM : ViewModelBase
 {
+    private static Logger _logger = LogManager.GetCurrentClassLogger();
+
+
     [ObservableProperty]
     private IncludeOptions includeOptionSettings = new();
 
@@ -20,92 +26,79 @@ public partial class AdvancedOptionsVM : ViewModelBase
 
     public ObservableCollection<ThemeFileInfo> ThemeFiles { get; set; } = [];
 
-    public class InvalidThemesFolderArgs
-    {
-        public required Exception ex;
-    }
-    public event AsyncEventHandler<InvalidThemesFolderArgs>? InvalidThemesFolder;
 
-    public class NoThemesArgs { }
-    public event AsyncEventHandler<NoThemesArgs>? NoThemes;
+    public event AsyncEventHandler<DisplayGeneralErrorArgs>? InvalidThemesFolder;
+
+    public void SetThemesFolder(string path)
+    {
+        var themeFiles = ThemeFolderOpener.GetThemeFilesFromFolder(path);
+        if (themeFiles.Count == 0) throw new ArgumentException(path);
+        foreach (var themeFile in themeFiles) ThemeFiles.Add(themeFile);
+        ThemeFolderDisplay = path;
+    }
+
 
     [RelayCommand]
-    public async Task SetThemesFolder(string path)
+    public async Task SetThemesFolderLogged(string path)
     {
         try
         {
-            var themeFiles = ThemeFolderOpener.GetThemeFilesFromFolder(path);
-            if (themeFiles.Count == 0)
-            {
-                if (NoThemes != null)
-                    await NoThemes(this, new NoThemesArgs { });
-
-                return;
-            }
-
-            foreach (var themeFile in themeFiles) ThemeFiles.Add(themeFile);
-            
-
-            ThemeFolderDisplay = path;
+            SetThemesFolder(path);
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ErrorHelper.IsFileException(ex))
         {
-            if (InvalidThemesFolder != null)
-                await InvalidThemesFolder(this, new InvalidThemesFolderArgs { ex = ex });
-
+            _logger.Error(ex, "Cannot access directory or files of {path}.", path);
+            await AEHHelper.RunAEH(InvalidThemesFolder, this, new(
+                $"The program cannot access the theme folder \"{path}\" or its themes.",
+                ex
+            ));
+            return;
+        }
+        catch (ThemeDuplicateException ex)
+        {
+            _logger.Error(ex, "The themes {path1} and {path2} have the duplicate ID {themeId}.", ex.path1, ex.path2, ex.themeId);
+            await AEHHelper.RunAEH(InvalidThemesFolder, this, new(
+                $"Duplicate theme ID ${ex.themeId} found in \"{ex.path1}\" and \"{ex.path2}\".",
+                ex
+            ));
+            return;
+        }
+        catch (ArgumentException ex) when (ex.Message == path)
+        {
+            _logger.Error("{path} has no themes.", path);
+            await AEHHelper.RunAEH(InvalidThemesFolder, this, new(
+                $"The theme folder \"{path}\" has no themes.", null
+            ));
             return;
         }
     }
 
 
     public readonly string defaultThemesPath = @"C:\Program Files (x86)\Steam\steamapps\common\Project Arrhythmia\beatmaps\themes";
-
-    public class ThemesLoadFailedArgs
-    {
-        public required Exception ex;
-        public required string defaultThemesPath;
-    }
-    public event AsyncEventHandler<ThemesLoadFailedArgs>? InitialThemeLoadFailed;
+    public event AsyncEventHandler<DisplayGeneralErrorArgs>? InitialThemeLoadFailed;
 
     [RelayCommand]
     public async Task LoadDefaultThemes()
     {
         try
         {
-            var themeFiles = ThemeFolderOpener.GetThemeFilesFromFolder(defaultThemesPath);
-            foreach (var themeFile in themeFiles) ThemeFiles.Add(themeFile);
-            ThemeFolderDisplay = defaultThemesPath;
+            SetThemesFolder(defaultThemesPath);
         }
-        catch (Exception ex)
-        {
-            if (InitialThemeLoadFailed != null)
-                await InitialThemeLoadFailed(this, new ThemesLoadFailedArgs { ex = ex, defaultThemesPath = defaultThemesPath });
-
+        catch (Exception ex) {
+            _logger.Error(ex, "Cannot load default themes path {defaultThemesPath}.", defaultThemesPath);
+            await AEHHelper.RunAEH(InitialThemeLoadFailed, this, new(
+                $"The program cannot load the default themes path at \"{defaultThemesPath}\". Please set a new theme folder in the \"Advanced Options\" button.\n",
+                ex
+            ));
             return;
         }
-
     }
 
-
-    public event AsyncEventHandler<ThemesLoadFailedArgs>? ResetThemeLoadFailed;
 
     [RelayCommand]
     public async Task Reset()
     {
         IncludeOptionSettings = new();
-
-        try
-        {
-            var themeFiles = ThemeFolderOpener.GetThemeFilesFromFolder(defaultThemesPath);
-            foreach (var themeFile in themeFiles) ThemeFiles.Add(themeFile);
-            ThemeFolderDisplay = defaultThemesPath;
-        }
-        catch (Exception ex)
-        {
-            if (ResetThemeLoadFailed != null)
-                await ResetThemeLoadFailed(this, new ThemesLoadFailedArgs { ex = ex, defaultThemesPath = defaultThemesPath });
-
-            return;
-        }
+        await LoadDefaultThemes();
     }
 }

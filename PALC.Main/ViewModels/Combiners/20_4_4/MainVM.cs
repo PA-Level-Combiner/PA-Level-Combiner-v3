@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NLog;
 using PALC.Main.Models.Combiners._20_4_4;
-using PALC.Main.Models.Combiners._20_4_4.exceptions;
+using PALC.Main.Models.Combiners._20_4_4.Exceptions;
 using PALC.Main.Models.Combiners._20_4_4.LevelComponents;
 using System;
 using System.Collections.Generic;
@@ -62,11 +62,11 @@ public partial class MainVM(AdvancedOptionsVM advancedOptionsVM) : ViewModelBase
 
             return;
         }
-        catch (JsonException ex)
+        catch (JsonLoadException ex)
         {
-            _logger.Error(ex, "Failed trying to load JSON.");
+            _logger.Error(ex, "Failed trying to load JSON from file {filePath}.", ex.path);
             await AEHHelper.RunAEH(InvalidSource, this, new(
-                "The JSON of a file inside the folder failed to load.", ex
+                $"The JSON of the file \"{ex.path}\" failed to load.", ex
             ));
 
             return;
@@ -104,7 +104,7 @@ public partial class MainVM(AdvancedOptionsVM advancedOptionsVM) : ViewModelBase
 
                 continue;
             }
-            catch (JsonException ex)
+            catch (JsonLoadException ex)
             {
                 _logger.Warn(ex, "Failed trying to load JSON of file {filePath}.", file.Path);
                 await AEHHelper.RunAEH(InvalidSource, this, new(

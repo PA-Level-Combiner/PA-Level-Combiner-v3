@@ -8,6 +8,8 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using System;
 
+using PALC.Main.Models.Combiners._20_4_4.Exceptions;
+
 
 #pragma warning disable IDE1006
 namespace PALC.Main.Models.Combiners._20_4_4.LevelComponents
@@ -39,7 +41,7 @@ namespace PALC.Main.Models.Combiners._20_4_4.LevelComponents
             {
                 var theme = Theme.FromFile(themePath);
                 if (themeFileInfos.TryGetValue(theme.EventThemeId, out ThemeFileInfo? duplicate))
-                    throw new ArgumentException($"Theme {themePath} and theme with path {duplicate.Path} shares a duplicate ID {theme.id}.");
+                    throw new ThemeDuplicateException(themePath, duplicate.Path, theme.id);
 
                 themeFileInfos.Add(theme.EventThemeId, new ThemeFileInfo { ThemeProp = theme, Path = themePath });
             }
@@ -62,7 +64,7 @@ namespace PALC.Main.Models.Combiners._20_4_4.LevelComponents
             {
                 if (!folderThemeDict.TryGetValue(themeId, out Theme? theme))
                 {
-                    throw new exceptions.ThemeInFolderNotFoundException(themeId);
+                    throw new Exceptions.ThemeInFolderNotFoundException(themeId);
                 }
 
                 output.Add(theme ?? throw new Exception());
@@ -179,8 +181,16 @@ namespace PALC.Main.Models.Combiners._20_4_4.LevelComponents
             => JsonConvert.DeserializeObject<Level>(json)
                 ?? throw new JsonException();
 
-        public static Level FromFile(string path)
-            => FromFileJson(File.ReadAllText(path));
+        public static Level FromFile(string path) {
+            try
+            {
+                return FromFileJson(File.ReadAllText(path));
+            }
+            catch (JsonException ex)
+            {
+                throw new JsonLoadException(path, ex);
+            }
+        }
 
         public string ToFileJson()
             => JsonConvert.SerializeObject(this, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
@@ -231,7 +241,16 @@ namespace PALC.Main.Models.Combiners._20_4_4.LevelComponents
             => JsonConvert.DeserializeObject<Theme>(json) ?? throw new JsonException();
 
         public static Theme FromFile(string path)
-            => FromFileJson(File.ReadAllText(path));
+        {
+            try
+            {
+                return FromFileJson(File.ReadAllText(path));
+            }
+            catch (JsonException ex)
+            {
+                throw new JsonLoadException(path, ex);
+            }
+        }
 
         public string ToFileJson()
         {
@@ -353,7 +372,16 @@ namespace PALC.Main.Models.Combiners._20_4_4.LevelComponents
             => JsonConvert.DeserializeObject<Metadata>(json) ?? throw new JsonException();
 
         public static Metadata FromFile(string path)
-            => FromFileJson(File.ReadAllText(path));
+        {
+            try
+            {
+                return FromFileJson(File.ReadAllText(path));
+            }
+            catch (JsonException ex)
+            {
+                throw new JsonLoadException(path, ex);
+            }
+        }
 
         public string ToFileJson()
             => JsonConvert.SerializeObject(this);
