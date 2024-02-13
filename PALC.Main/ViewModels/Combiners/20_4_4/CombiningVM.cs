@@ -4,14 +4,20 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Media;
+using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
-
+using NLog;
 using PALC.Main.Models.Combiners._20_4_4;
+using PALC.Main.Models.Combiners._20_4_4.LevelComponents;
 
 namespace PALC.Main.ViewModels.Combiners._20_4_4;
 
 public partial class CombiningVM : ViewModelBase
 {
+    private static Logger _logger = LogManager.GetCurrentClassLogger();
+
+
     public CombiningVM(
         LevelFolder? sourceLevelFolder = null,
         List<LevelFileInfo>? levelFiles = null,
@@ -44,14 +50,16 @@ public partial class CombiningVM : ViewModelBase
 
     public ObservableCollection<string> Logs { get; } = [];
 
-    private void CreateLog(string log)
+    private void CreateLog(string log, LogLevel? severity = null)
     {
-        Logs.Add($"[{DateTime.Now:hh:mm:ss}] {log}");
+        severity ??= LogLevel.Info;
+        _logger.Log(severity, log);
+        Logs.Add($"[{DateTime.Now:hh:mm:ss}] [{severity.Name}] {log}");
     }
 
-    private async Task OnCombineError(object? sender, CombineErrorArgs e)
+    private async Task OnCombineError(object? sender, DisplayGeneralErrorArgs e)
     {
-        await Task.Run(() => CreateLog($"{e.message}\n\n{e.ex?.Message ?? ""}"));
+        await Task.Run(() => CreateLog($"{e.message}\n\n{e.ex?.Message ?? ""}", LogLevel.Error));
         EnableExit = true;
     }
 
@@ -63,12 +71,7 @@ public partial class CombiningVM : ViewModelBase
 
 
 
-    public class CombineErrorArgs
-    {
-        public required Exception? ex;
-        public required string message;
-    }
-    public event AsyncEventHandler<CombineErrorArgs>? CombineError;
+    public event AsyncEventHandler<DisplayGeneralErrorArgs>? CombineError;
 
     public class FinishedArgs
     {
@@ -78,11 +81,7 @@ public partial class CombiningVM : ViewModelBase
 
     public async Task Combine()
     {
-        async Task RaiseCombineError(CombineErrorArgs args)
-        {
-            if (CombineError != null)
-                await CombineError(this, args);
-        }
+        _logger.Info("Combining levels...");
 
         try
         {
@@ -90,9 +89,13 @@ public partial class CombiningVM : ViewModelBase
             IncludeOptions includeOptions = this.includeOptions ?? throw new ArgumentNullException();
             string outputFolderPath = this.outputFolderPath ?? throw new ArgumentNullException();
         }
-        catch (Exception ex)
+        catch (ArgumentNullException ex)
         {
-            await RaiseCombineError(new CombineErrorArgs { ex = ex, message = "One or more fields are null." });
+            _logger.Error(ex, "One or more fields are null.");
+            await AEHHelper.RunAEH(CombineError, this, new(
+                "One or more fields are null.",
+                ex
+            ));
             return;
         }
 
@@ -109,7 +112,11 @@ public partial class CombiningVM : ViewModelBase
         }
         catch (Exception ex)
         {
-            await RaiseCombineError(new CombineErrorArgs { ex = ex, message = "An error occurred during combining." });
+            _logger.Error(ex, "An error occurred while trying to combine levels.");
+            await AEHHelper.RunAEH(CombineError, this, new(
+                "An error occurred during combining.",
+                ex
+            ));
             return;
         }
             
@@ -127,50 +134,50 @@ public partial class CombiningVM : ViewModelBase
         */
 
         CreateLog("Creating folders...");
-        string levelPath = Path.Join(outputFolderPath, "level");
+        string levelFolderPath = Path.Join(outputFolderPath, "level");
         string themesPath = Path.Join(outputFolderPath, "themes");
 
-        foreach (var path in new List<string>([levelPath, themesPath]))
+        foreach (var path in new List<string>([levelFolderPath, themesPath]))
+        {
             try
             {
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (ErrorHelper.IsFileException(ex))
             {
-                await RaiseCombineError(new CombineErrorArgs { ex = ex, message = "An error occurred while creating folders inside the output path." });
+                _logger.Error(ex, "Cannot create directory {directory}.", path);
+                await AEHHelper.RunAEH(CombineError, this, new(
+                    $"An error occurred while trying to create the folder \"{path}\".",
+                    ex
+                ));
                 return;
             }
+        }
 
 
 
         CreateLog("Writing all themes...");
         Dictionary<string, ThemeFileInfo> cache = [];
 
-        try
+
+        foreach (var themeFile in themeFiles)
         {
-            foreach (var themeFile in themeFiles)
+            if (cache.TryGetValue(themeFile.ThemeProp.EventThemeId, out ThemeFileInfo? value))
             {
-                if (cache.TryGetValue(themeFile.ThemeProp.EventThemeId, out ThemeFileInfo? value))
-                {
-                    var currentThemeFilename = Path.GetFileName(themeFile.Path);
-                    var conflictThemeFilename = Path.GetFileName(value.Path);
-                    CreateLog(
-                        $"Theme files {currentThemeFilename} and {conflictThemeFilename} " +
-                        $"have the same ID {themeFile.ThemeProp.EventThemeId}. Going to use {currentThemeFilename}..."
-                    );
+                var currentThemeFilename = Path.GetFileName(themeFile.Path);
+                var conflictThemeFilename = Path.GetFileName(value.Path);
+                CreateLog(
+                    $"Theme files {currentThemeFilename} and {conflictThemeFilename} " +
+                    $"have the same ID {themeFile.ThemeProp.EventThemeId}. Going to use {currentThemeFilename}...",
+                    LogLevel.Warn
+                );
 
-                    cache[themeFile.ThemeProp.EventThemeId] = themeFile;
-                    continue;
-                }
-
-                cache.Add(themeFile.ThemeProp.EventThemeId, themeFile);
+                cache[themeFile.ThemeProp.EventThemeId] = themeFile;
+                continue;
             }
-        }
-        catch (Exception ex)
-        {
-            await RaiseCombineError(new CombineErrorArgs { ex = ex, message = "An error occurred while creating the theme cache." });
-            return;
+
+            cache.Add(themeFile.ThemeProp.EventThemeId, themeFile);
         }
 
 
@@ -179,58 +186,78 @@ public partial class CombiningVM : ViewModelBase
         {
             if (!cache.ContainsKey(theme.EventThemeId))
             {
-                CreateLog($"Theme ID {theme.EventThemeId} not found in theme folder. Skipping...");
+                CreateLog($"Theme ID {theme.EventThemeId} not found in theme folder. Skipping...", LogLevel.Warn);
                 continue;
             }
 
             var themeFile = cache[theme.EventThemeId];
             var filename = Path.GetFileName(themeFile.Path);
+            var filePath = Path.Combine(themesPath, filename)
             CreateLog($"Writing {filename}...");
 
             try
             {
-                File.WriteAllText(Path.Join(themesPath, filename), theme.ToFileJson());
+                File.WriteAllText(filePath, theme.ToFileJson());
             }
-            catch (Exception ex)
+            catch (Exception ex) when (ErrorHelper.IsFileException(ex))
             {
-                await RaiseCombineError(new CombineErrorArgs { ex = ex, message = $"An error occurred while writing the theme {filename}." });
+                _logger.Error(ex, "Cannot create theme {path}.", filePath);
+                await AEHHelper.RunAEH(CombineError, this, new(
+                    $"An error occurred while trying to create the theme \"{filePath}\".",
+                    ex
+                ));
                 return;
             }
         }
 
 
         CreateLog("Writing level file...");
+        string levelPath = Path.Join(levelFolderPath, Level.defaultFileName);
         try
         {
-            File.WriteAllText(Path.Join(levelPath, "level.lsb"), combined.level.ToFileJson());
+            File.WriteAllText(levelFolderPath, combined.level.ToFileJson());
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ErrorHelper.IsFileException(ex))
         {
-            await RaiseCombineError(new CombineErrorArgs { ex = ex, message = $"An error occurred while writing the level file." });
+            _logger.Error(ex, "Cannot create level file {path}.", levelPath);
+            await AEHHelper.RunAEH(CombineError, this, new(
+                $"An error occurred while trying to create the level file \"{levelPath}\".",
+                ex
+            ));
             return;
         }
 
 
         CreateLog("Writing metadata...");
+        string metadataPath = Path.Join(levelFolderPath, "metadata.lsb");
         try
         {
-            File.WriteAllText(Path.Join(levelPath, "metadata.lsb"), combined.metadata.ToFileJson());
+            File.WriteAllText(metadataPath, combined.metadata.ToFileJson());
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ErrorHelper.IsFileException(ex))
         {
-            await RaiseCombineError(new CombineErrorArgs { ex = ex, message = $"An error occurred while writing the metadata file." });
+            _logger.Error(ex, "Cannot create metadata file {path}.", metadataPath);
+            await AEHHelper.RunAEH(CombineError, this, new(
+                $"An error occurred while trying to create the metadata file \"{metadataPath}\".",
+                ex
+            ));
             return;
         }
 
 
         CreateLog("Copying audio...");
+        string audioPath = Path.Join(levelFolderPath, "audio.ogg");
         try
         {
-            File.Copy(combined.audioPath, Path.Join(levelPath, "audio.ogg"), true);
+            File.Copy(combined.audioPath, audioPath, true);
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ErrorHelper.IsFileException(ex))
         {
-            await RaiseCombineError(new CombineErrorArgs { ex = ex, message = $"An error occurred while trying to copying the audio." });
+            _logger.Error(ex, "Cannot copy audio file from {source} to {dest}.", combined.audioPath, audioPath);
+            await AEHHelper.RunAEH(CombineError, this, new(
+                $"An error occurred while trying to copy the audio file from \"{combined.audioPath}\" to \"{audioPath}\".",
+                ex
+            ));
             return;
         }
 

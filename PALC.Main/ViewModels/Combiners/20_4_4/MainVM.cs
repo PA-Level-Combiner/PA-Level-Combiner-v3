@@ -52,33 +52,12 @@ public partial class MainVM(AdvancedOptionsVM advancedOptionsVM) : ViewModelBase
             SourceLevelFolder = new LevelFolder(path);
             SourceDisplay = path;
         }
-        catch (Exception ex) when (
-            ex is UnauthorizedAccessException ||
-            ex is PathTooLongException
-        )
+        catch (Exception ex) when (ErrorHelper.IsFileException(ex))
         {
-            _logger.Error(ex, "Source level folder {path} cannot be accessed.", path);
+            _logger.Error(ex, "Source level folder {path} cannot be used.", path);
             await AEHHelper.RunAEH(InvalidSource, this, new(
-                "The source folder cannot be accessed. " + AdditionalErrors.noAccessHelp,
+                "The source folder cannot be used. ",
                 ex
-            ));
-
-            return;
-        }
-        catch (DirectoryNotFoundException ex)
-        {
-            _logger.Error(ex, "Source level folder {path} doesn't exist.", path);
-            await AEHHelper.RunAEH(InvalidSource, this, new(
-                "The source folder doesn't exist. ", ex
-            ));
-
-            return;
-        }
-        catch (FileNotFoundException ex)
-        {
-            _logger.Error("File {exFile} from source level folder {path} not found.", ex.FileName, path);
-            await AEHHelper.RunAEH(InvalidSource, this, new(
-                $"Cannot find the file \"{ex.FileName}\". ", ex
             ));
 
             return;
@@ -115,27 +94,12 @@ public partial class MainVM(AdvancedOptionsVM advancedOptionsVM) : ViewModelBase
                 var level = Level.FromFile(path);
                 LevelList.Add(new LevelFileInfo { LevelProp = level, Path = path });
             }
-            catch (Exception ex) when (
-                ex is UnauthorizedAccessException ||
-                ex is PathTooLongException
-            )
+            catch (Exception ex) when (ErrorHelper.IsFileException(ex))
             {
-                _logger.Warn(ex, "Level file {filePath} cannot be accessed. Skipping...", file.Path);
+                _logger.Warn(ex, "Level file {filePath} cannot be accessed or doesn't exist. Skipping...", file.Path);
                 await AEHHelper.RunAEH(InvalidSource, this, new(
-                    $"The level \"{file.Path}\" cannot be accessed. " + AdditionalErrors.noAccessHelp,
+                    $"The level \"{file.Path}\" cannot be accessed or doesn't exist. ",
                     ex
-                ));
-
-                continue;
-            }
-            catch (Exception ex) when (
-                ex is DirectoryNotFoundException ||
-                ex is FileNotFoundException
-            )
-            {
-                _logger.Warn(ex, "Level file {filePath} doesn't exist. Skipping...", file.Path);
-                await AEHHelper.RunAEH(InvalidSource, this, new(
-                     $"The level \"{file.Path}\" doesn't exist. ", ex
                 ));
 
                 continue;
