@@ -26,16 +26,15 @@
 	</Window.Resources>
 	
 
-	<Grid RowDefinitions="*, 5*"
+	<Grid RowDefinitions="Auto, *"
 				  ColumnDefinitions="*">
 
 		<TextBlock Grid.Row="0"
-					Classes="title"
-					Text="20.4.4 COMBINER"/>
+				   Classes="title"
+				   Text="LEGACY COMBINER"/>
 
 		<Grid Grid.Row="1"
-				RowDefinitions="*, 4*, *, *"
-				ColumnDefinitions="*">
+			  RowDefinitions="*, 4*, *, *">
 			<controls:Browse Grid.Row="0"
 							 LabelText="Source Level Folder"
 							 Display="{Binding SourceDisplay, Mode=TwoWay}"

@@ -16,6 +16,8 @@
 		Width="640" Height="480"
 		WindowStartupLocation="CenterScreen"
 		
+		Padding="10"
+		
 		Loaded="OnLoaded">
 
 
@@ -61,13 +63,15 @@
 					  SelectedItem="{Binding SelectedVersionChoice, ElementName=Window}">
 				<ComboBox.ItemTemplate>
 					<DataTemplate DataType="{x:Type local:VersionChoice}">
-						<TextBlock Text="{Binding DisplayText}"/>
+						<TextBlock Classes="h2"
+								   Foreground="{DynamicResource Color.Primary.FG}"
+								   Text="{Binding DisplayText}"/>
 					</DataTemplate>
 				</ComboBox.ItemTemplate>
 			</ComboBox>
 
 			<Button Grid.Column="1"
-					Classes="primary"
+					Classes="success"
 					Content="Select This Version"
 					Command="{Binding OpenVersionCommand, ElementName=Window}">
 			</Button>

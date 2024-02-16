@@ -14,14 +14,17 @@
 		Width="800" Height="600"
 		WindowStartupLocation="CenterOwner">
 
-    <Grid RowDefinitions="*, 5*, *, *"
+    <Grid RowDefinitions="Auto, Auto, 4*, Auto, *, Auto, *"
 		  ColumnDefinitions="*">
 		<TextBlock Grid.Row="0"
-				   Classes="h1"
+				   Classes="title"
 				   Text="Advanced Options"/>
+		
+		
+		<Separator Grid.Row="1"/>
 
-		<controls:IncludeOptions Grid.Row="1"
-								 Margin="0 0 0 30"
+		
+		<controls:IncludeOptions Grid.Row="2"
 								 HorizontalAlignment="Center"
 								 BeatmapObjects="{Binding IncludeOptionSettings.BeatmapObjects, Mode=TwoWay}"
 								 Prefabs="{Binding IncludeOptionSettings.Prefabs, Mode=TwoWay}"
@@ -29,17 +32,26 @@
 								 Checkpoints="{Binding IncludeOptionSettings.Checkpoints, Mode=TwoWay}"
 								 EventKFs="{Binding IncludeOptionSettings.EventKeyframes, Mode=TwoWay}"
 								 BGObjects="{Binding IncludeOptionSettings.BgObjects, Mode=TwoWay}"/>
+
+
+		<Separator Grid.Row="3"/>
+
 		
-		<controls:Browse Grid.Row="2"
+		<controls:Browse Grid.Row="4"
 						 LabelText="Theme Folder"
 						 Display="{Binding ThemeFolderDisplay, Mode=TwoWay}"
 						 ButtonClick="{Binding OnSetThemesFolderCommand, ElementName=Window}"/>
 
-		<Grid Grid.Row="3"
+
+		<Separator Grid.Row="5"/>
+		
+		
+		<Grid Grid.Row="6"
 			  RowDefinitions="*"
 			  ColumnDefinitions="*, *">
 			
 			<Button Grid.Column="0"
+					Classes="primary"
 					Content="Reset"
 					Command="{Binding Reset}"/>
 			<Button Grid.Column="1"

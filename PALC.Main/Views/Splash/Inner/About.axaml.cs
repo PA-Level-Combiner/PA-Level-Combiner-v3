@@ -33,22 +33,23 @@ public partial class TableItem : TemplatedControl
 
 public partial class LinkButton : TemplatedControl
 {
-    public static readonly StyledProperty<bool> ClassPrimaryProperty =
-        AvaloniaProperty.Register<LinkButton, bool>(nameof(ClassPrimary), false);
+    public static readonly StyledProperty<string> ButtonClassesProperty =
+        AvaloniaProperty.Register<LinkButton, string>(nameof(ButtonClasses));
 
-    public bool ClassPrimary
+    public string ButtonClasses
     {
-        get => GetValue(ClassPrimaryProperty);
-        set => SetValue(ClassPrimaryProperty, value);
+        get => GetValue(ButtonClassesProperty);
+        set => SetValue(ButtonClassesProperty, value);
     }
 
-    public static readonly StyledProperty<bool> ClassSecondaryProperty =
-        AvaloniaProperty.Register<LinkButton, bool>(nameof(ClassSecondary), false);
 
-    public bool ClassSecondary
+    public static readonly StyledProperty<string> TextBlockClassesProperty =
+        AvaloniaProperty.Register<LinkButton, string>(nameof(TextBlockClasses));
+
+    public string TextBlockClasses
     {
-        get => GetValue(ClassSecondaryProperty);
-        set => SetValue(ClassSecondaryProperty, value);
+        get => GetValue(TextBlockClassesProperty);
+        set => SetValue(TextBlockClassesProperty, value);
     }
 
 

@@ -4,9 +4,18 @@
 			 RequestedThemeVariant="Light">
 
     <Application.Styles>
-		<StyleInclude Source="avares://PALC.Common/Styles/Styles.axaml"/>
+		<StyleInclude Source="avares://PALC.Common/Views/Styles/Styles.axaml"/>
 		
 		<StyleInclude Source="avares://PALC.Common/Views/Templates/Templates.axaml" />
 	</Application.Styles>
+
+
+	<Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source="avares://PALC.Common/Views/Styles/Resources/Include.axaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Application.Resources>
 
 </Application>

@@ -8,6 +8,7 @@
 		xmlns:vm="using:PALC.Main.ViewModels.Splash.Inner"
 		xmlns:local="using:PALC.Main.Views.Splash.Inner"
 		xmlns:controls="using:PALC.Main.Views.Templates"
+		xmlns:common="using:PALC.Common.Views"
 
         x:Class="PALC.Main.Views.Splash.Inner.About"
 		x:DataType="vm:AboutVM"
@@ -46,16 +47,18 @@
 		<Style Selector="local|LinkButton">
 			<Setter Property="Template">
 				<ControlTemplate TargetType="{x:Type local:LinkButton}">
-					<Button Classes.primary="{TemplateBinding ClassPrimary}"
-							Classes.secondary="{TemplateBinding ClassSecondary}"
+					<Button common:BindableClasses.Classes="{TemplateBinding ButtonClasses}"
 							Command="{Binding LaunchLinkCommand, RelativeSource={RelativeSource TemplatedParent}}">
-						<Grid RowDefinitions="2*, *"
-							  ColumnDefinitions="*">
+						<Grid RowDefinitions="2*, *">
 							<TextBlock Grid.Row="0"
 									   Classes="h2"
+									   Classes.disabled="{Binding !IsEnabled, RelativeSource={RelativeSource TemplatedParent}}"
+									   common:BindableClasses.Classes="{TemplateBinding TextBlockClasses}"
 									   Margin="1"
 									   Text="{TemplateBinding Title}"/>
 							<TextBlock Grid.Row="1"
+									   Classes.disabled="{Binding !IsEnabled, RelativeSource={RelativeSource TemplatedParent}}"
+									   common:BindableClasses.Classes="{TemplateBinding TextBlockClasses}"
 									   Margin="1"
 									   FontSize="10"
 									   Text="{TemplateBinding Link}"/>
@@ -172,18 +175,23 @@
 			  ColumnDefinitions="*">
 				  
 			<local:LinkButton Grid.Row="0"
-							  ClassPrimary="True"
+							  ButtonClasses="secondary"
+							  TextBlockClasses="secondary"
 							  Title="GITHUB PAGE"
 							  Link="{Binding GithubLink}"/>
 			<local:LinkButton Grid.Row="1"
-							  ClassSecondary="True"
+							  ButtonClasses="success"
+							  TextBlockClasses="success"
 							  Title="REPORT BUGS / MAKE SUGGESTIONS"
 							  Link="{Binding GithubIssuesLink}"/>
 			<local:LinkButton Grid.Row="2"
+							  ButtonClasses="primary"
+							  TextBlockClasses="primary"
 							  IsEnabled="False"
 							  Title="ONLINE COMBINER (by DXL44)"
 							  Link="Coming soon :)"/>
 			<Button Grid.Row="3"
+					Classes="danger"
 					Content="CRASH BUTTON (test out error reporting!)"
 					Command="{Binding CrashCommand}"/>
 		</Grid>
