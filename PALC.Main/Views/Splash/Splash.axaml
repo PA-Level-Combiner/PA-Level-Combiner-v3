@@ -16,8 +16,6 @@
 		Width="640" Height="480"
 		WindowStartupLocation="CenterScreen"
 		
-		Padding="10"
-		
 		Loaded="OnLoaded">
 
 

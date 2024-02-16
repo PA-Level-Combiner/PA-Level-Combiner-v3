@@ -20,21 +20,25 @@
 		  ColumnDefinitions="*">
 		<TextBlock Grid.Row="0"
 				   Classes="h2"
-				   Text="Combining..."/>
+				   Text="Combining stuff!"/>
 
-		<ListBox Grid.Row="1"
-				 ItemsSource="{Binding Logs, Mode=TwoWay}">
-			<ListBox.ItemTemplate>
-				<DataTemplate DataType="{x:Type sys:String}">
-					<TextBlock Classes="caption"
-							   Margin="0"
-							   TextAlignment="Left"
-							   Text="{Binding}"/>
-				</DataTemplate>
-			</ListBox.ItemTemplate>
-		</ListBox>
-		
+		<ScrollViewer Grid.Row="1">
+			<ListBox ScrollViewer.VerticalScrollBarVisibility="Visible"
+					 ItemsSource="{Binding Logs, Mode=TwoWay}">
+				<ListBox.ItemTemplate>
+					<DataTemplate DataType="{x:Type sys:String}">
+						<TextBlock Classes="caption"
+								   Margin="0"
+								   TextAlignment="Left"
+								   Text="{Binding}"/>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</ScrollViewer>
+
+
 		<Button Grid.Row="2"
+				Classes="success"
 				Content="Finish"
 				IsEnabled="{Binding EnableExit, Mode=TwoWay}"
 				Command="{Binding OnFinishClickCommand, ElementName=Window}"/>

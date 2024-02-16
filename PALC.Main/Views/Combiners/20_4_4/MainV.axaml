@@ -14,7 +14,7 @@
 		x:Class="PALC.Main.Views.Combiners._20_4_4.MainV"
 		x:DataType="vm:MainVM"
         Title="Combiner"
-		Width="1024" Height="576"
+		Width="1024" Height="700"
 		WindowStartupLocation="CenterScreen"
 		
 		Loaded="OnLoaded">
@@ -26,72 +26,78 @@
 	</Window.Resources>
 	
 
-	<Grid RowDefinitions="Auto, *"
-				  ColumnDefinitions="*">
+	<Grid RowDefinitions="Auto, *">
 
 		<TextBlock Grid.Row="0"
 				   Classes="title"
 				   Text="LEGACY COMBINER"/>
 
 		<Grid Grid.Row="1"
-			  RowDefinitions="*, 4*, *, *">
+			  RowDefinitions="*, Auto, 3*, Auto, *, Auto, *">
 			<controls:Browse Grid.Row="0"
 							 LabelText="Source Level Folder"
 							 Display="{Binding SourceDisplay, Mode=TwoWay}"
 							 ButtonClick="{Binding OnSetSourceCommand, ElementName=Window}"/>
-			<Grid Grid.Row="1"
-				  RowDefinitions="*, 4*"
-				  ColumnDefinitions="*">
-				<TextBlock Grid.Row="0"
-						   Classes="h1"
-						   Text="Level List"/>
-				<controls:LevelList Grid.Row="1"
-									AddItemCommand="{Binding OnAddLevelCommand, ElementName=Window}"
-									DeleteItemCommand="{Binding OnDeleteLevelCommand, ElementName=Window}">
-					<controls:LevelList.ListBox>
-						<ListBox ScrollViewer.HorizontalScrollBarVisibility="Auto"
-								 SelectionMode="Multiple"
-								 ItemsSource="{Binding LevelList, Mode=TwoWay}"
-								 SelectedItems="{Binding SelectedItems}">
-							<ListBox.ItemTemplate>
-								<DataTemplate DataType="{x:Type m:LevelFileInfo}">
-									<Grid RowDefinitions="*, 2*, *">
-										<TextBlock Grid.Row="0"
-												   Classes="caption"
-												   TextAlignment="Left"
-												   Text="{Binding Path, Converter={StaticResource LevelStartConverter}}"/>
-										<TextBlock Grid.Row="1"
-												   Classes="h3"
-												   TextAlignment="Left"
-												   FontWeight="Bold"
-												   Text="{Binding Path, Converter={StaticResource LevelMiddleConverter}}"/>
-										<TextBlock Grid.Row="2"
-												   Classes="caption"
-												   TextAlignment="Left"
-												   Text="{Binding Path, Converter={StaticResource LevelEndConverter}}"/>
-									</Grid>
-								</DataTemplate>
-							</ListBox.ItemTemplate>
-						</ListBox>
-					</controls:LevelList.ListBox>
-				</controls:LevelList>
-			</Grid>
 
-			<controls:Browse Grid.Row="2"
+			<Separator Grid.Row="1" />
+			
+			
+			<controls:LevelList Grid.Row="2"
+								AddItemCommand="{Binding OnAddLevelCommand, ElementName=Window}"
+								DeleteItemCommand="{Binding OnDeleteLevelCommand, ElementName=Window}">
+				<controls:LevelList.ListBox>
+					<ListBox ScrollViewer.HorizontalScrollBarVisibility="Auto"
+								SelectionMode="Multiple"
+								ItemsSource="{Binding LevelList, Mode=TwoWay}"
+								SelectedItems="{Binding SelectedItems}">
+						<ListBox.ItemTemplate>
+							<DataTemplate DataType="{x:Type m:LevelFileInfo}">
+								<Grid RowDefinitions="*, 2*, *">
+									<TextBlock Grid.Row="0"
+												Classes="caption"
+												TextAlignment="Left"
+												Text="{Binding Path, Converter={StaticResource LevelStartConverter}}"/>
+									<TextBlock Grid.Row="1"
+												Classes="h3"
+												TextAlignment="Left"
+												FontWeight="Bold"
+												Text="{Binding Path, Converter={StaticResource LevelMiddleConverter}}"/>
+									<TextBlock Grid.Row="2"
+												Classes="caption"
+												TextAlignment="Left"
+												Text="{Binding Path, Converter={StaticResource LevelEndConverter}}"/>
+								</Grid>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</controls:LevelList.ListBox>
+			</controls:LevelList>
+
+			<Separator Grid.Row="3" />
+
+			
+			<controls:Browse Grid.Row="4"
 							 LabelText="Output Folder"
 							 Display="{Binding OutputFolderPath, Mode=TwoWay}"
 							 ButtonClick="{Binding OnSetOutputFolderPathCommand, ElementName=Window}"/>
 
-			<Grid Grid.Row="3"
+			<Separator Grid.Row="5" />
+			
+			
+			<Grid Grid.Row="6"
 				  RowDefinitions="*"
 				  ColumnDefinitions="*, *, *">
 
 				<Button Grid.Column="0"
+						Classes="danger"
 						Content="Advanced Options..."
 						Command="{Binding OnAdvancedOptions, ElementName=Window}"/>
 				<Button Grid.Column="1"
+						Classes="primary"
+						IsEnabled="False"
 						Content="Documentation..."/>
 				<Button Grid.Column="2"
+						Classes="success"
 						Content="Combine!"
 						Command="{Binding OnCombine, ElementName=Window}"/>
 			</Grid>

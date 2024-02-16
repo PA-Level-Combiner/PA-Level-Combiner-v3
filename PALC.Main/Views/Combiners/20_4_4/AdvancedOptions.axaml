@@ -14,7 +14,7 @@
 		Width="800" Height="600"
 		WindowStartupLocation="CenterOwner">
 
-    <Grid RowDefinitions="Auto, Auto, 4*, Auto, *, Auto, *"
+    <Grid RowDefinitions="Auto, Auto, 3*, Auto, *, Auto, *"
 		  ColumnDefinitions="*">
 		<TextBlock Grid.Row="0"
 				   Classes="title"
@@ -51,10 +51,11 @@
 			  ColumnDefinitions="*, *">
 			
 			<Button Grid.Column="0"
-					Classes="primary"
+					Classes="danger"
 					Content="Reset"
 					Command="{Binding Reset}"/>
 			<Button Grid.Column="1"
+					Classes="success"
 					Content="Confirm"
 					Command="{Binding ConfirmCommand, ElementName=Window}"/>
 		</Grid>
