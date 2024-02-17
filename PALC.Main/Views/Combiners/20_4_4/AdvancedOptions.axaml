@@ -10,7 +10,7 @@
 		x:Name="Window"
 		x:Class="PALC.Main.Views.Combiners._20_4_4.AdvancedOptionsV"
 		x:DataType="vm:AdvancedOptionsVM"
-        Title="AdvancedOptions"
+        Title="Advanced Options"
 		Width="800" Height="600"
 		WindowStartupLocation="CenterOwner">
 
