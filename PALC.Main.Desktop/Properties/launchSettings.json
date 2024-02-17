@@ -1,11 +1,12 @@
 {
   "profiles": {
     "PALC.Desktop": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "--launchedFromUpdater"
     },
     "PALC.Desktop UI Test": {
       "commandName": "Project",
-      "commandLineArgs": "test"
+      "commandLineArgs": "--launchedFromUpdater"
     },
     "WSL": {
       "commandName": "WSL2",

@@ -97,7 +97,7 @@ public partial class MainVM(AdvancedOptionsVM advancedOptionsVM) : ViewModelBase
             catch (Exception ex) when (ErrorHelper.IsFileException(ex))
             {
                 _logger.Warn(ex, "Level file {filePath} cannot be accessed or doesn't exist. Skipping...", file.Path);
-                await AEHHelper.RunAEH(InvalidSource, this, new(
+                await AEHHelper.RunAEH(InvalidLevel, this, new(
                     $"The level \"{file.Path}\" cannot be accessed or doesn't exist. ",
                     ex
                 ));
@@ -107,7 +107,7 @@ public partial class MainVM(AdvancedOptionsVM advancedOptionsVM) : ViewModelBase
             catch (JsonLoadException ex)
             {
                 _logger.Warn(ex, "Failed trying to load JSON of file {filePath}.", file.Path);
-                await AEHHelper.RunAEH(InvalidSource, this, new(
+                await AEHHelper.RunAEH(InvalidLevel, this, new(
                     $"The level \"{file.Path}\" has corrupt JSON and failed to load.", ex
                 ));
 
@@ -116,7 +116,7 @@ public partial class MainVM(AdvancedOptionsVM advancedOptionsVM) : ViewModelBase
             catch (Exception ex)
             {
                 _logger.Warn(ex, "The file {filePath} failed to load. Skipping...", file.Path);
-                await AEHHelper.RunAEH(InvalidSource, this, new(
+                await AEHHelper.RunAEH(InvalidLevel, this, new(
                     $"The level \"{file.Path}\" failed to load.", ex
                 ));
 
@@ -152,7 +152,7 @@ public partial class MainVM(AdvancedOptionsVM advancedOptionsVM) : ViewModelBase
         if (path == null)
         {
             _logger.Error("No path provided.");
-            await AEHHelper.RunAEH(InvalidSource, this, new("There is no path provided.", null));
+            await AEHHelper.RunAEH(InvalidOutputFolderPath, this, new("There is no path provided.", null));
             return;
         }
 

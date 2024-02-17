@@ -9,6 +9,10 @@ using System;
 using PALC.Main.Views.Splash.Inner;
 using PALC.Common.Views.Templates;
 using System.ComponentModel;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
+using System.Diagnostics;
+using System.Linq;
 
 namespace PALC.Main.Views.Splash;
 
@@ -36,9 +40,23 @@ public partial class SplashV : Window
         DataContext = vm;
     }
 
-    private void OnLoaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private async void OnLoaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         vm.RandomSplashText();
+
+        List<string> cmdArgs = [.. Environment.GetCommandLineArgs()];
+        if (cmdArgs.ElementAtOrDefault(1) != "--launchedFromUpdater")
+        {
+            var result = await MessageBoxManager.GetMessageBoxStandard(
+                "Heeeyyy! >:(",
+                "You've just opened the combiner without the updater! Would you like to go to the updater releases page?",
+                ButtonEnum.YesNo,
+                MsBox.Avalonia.Enums.Icon.Info
+            ).ShowWindowDialogAsync(this);
+
+            if (result == ButtonResult.Yes)
+                Process.Start(new ProcessStartInfo(GithubInfo.updater.Releases) { UseShellExecute = true });
+        }
     }
 
     public static List<VersionChoice> VersionChoices => [
