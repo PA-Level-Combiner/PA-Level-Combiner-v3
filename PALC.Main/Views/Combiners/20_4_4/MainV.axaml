@@ -24,7 +24,7 @@
 		<conv:LevelMiddleConverter x:Key="LevelMiddleConverter"/>
 		<conv:LevelEndConverter x:Key="LevelEndConverter"/>
 	</Window.Resources>
-	
+
 
 	<Grid RowDefinitions="Auto, *">
 
@@ -40,8 +40,8 @@
 							 ButtonClick="{Binding OnSetSourceCommand, ElementName=Window}"/>
 
 			<Separator Grid.Row="1" />
-			
-			
+
+
 			<controls:LevelList Grid.Row="2"
 								AddItemCommand="{Binding OnAddLevelCommand, ElementName=Window}"
 								DeleteItemCommand="{Binding OnDeleteLevelCommand, ElementName=Window}">
@@ -75,15 +75,15 @@
 
 			<Separator Grid.Row="3" />
 
-			
+
 			<controls:Browse Grid.Row="4"
 							 LabelText="Output Folder"
 							 Display="{Binding OutputFolderPath, Mode=TwoWay}"
 							 ButtonClick="{Binding OnSetOutputFolderPathCommand, ElementName=Window}"/>
 
 			<Separator Grid.Row="5" />
-			
-			
+
+
 			<Grid Grid.Row="6"
 				  RowDefinitions="*"
 				  ColumnDefinitions="*, *, *">

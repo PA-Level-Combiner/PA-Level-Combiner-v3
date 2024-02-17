@@ -84,9 +84,15 @@ public partial class MainV : Window
 
 
     private AsyncRelayCommand? _onDeleteLevelCommand;
-    public AsyncRelayCommand OnDeleteLevelCommand => _onDeleteLevelCommand ??= new(OnDeleteLevel);
+    public AsyncRelayCommand OnDeleteLevelCommand => _onDeleteLevelCommand ??= new AsyncRelayCommand(OnDeleteLevel);
     private async Task OnDeleteLevel()
     {
+        if (vm.SelectedItems.Count == 0)
+        {
+            await OnDisplayGeneralError(this, new("No level selected. Wuh??", null));
+            return;
+        }
+
         var msg = MessageBoxManager.GetMessageBoxStandard(
             "Delete?",
             "Are you sure you want to delete the selected level/s?",
