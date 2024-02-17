@@ -4,10 +4,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         
+		xmlns:palc="using:PALC"
 		xmlns:v="using:PALC.Main.Views"
 		xmlns:vm="using:PALC.Main.ViewModels.Splash"
 		xmlns:local="using:PALC.Main.Views.Splash"
-		xmlns:controls="using:PALC.Main.Views.Templates"
+		xmlns:controls="using:PALC.Common.Views.Templates"
 
         x:Class="PALC.Main.Views.Splash.SplashV"
 		x:DataType="vm:SplashVM"
@@ -23,29 +24,25 @@
 		  ColumnDefinitions="*">
 		<Grid Grid.Row="0"
 			  Margin="10"
-			  RowDefinitions="2*, *"
+			  RowDefinitions="*, Auto"
 			  ColumnDefinitions="*">
 			<Image Grid.Row="0"
 				   Source="avares://PALC.Common/Assets/palc_icon.ico"/>
-			<DockPanel Grid.Row="1">
-				<Grid VerticalAlignment="Center"
-					  RowDefinitions="2*, *, *">
-					<TextBlock Grid.Row="0"
-							   Classes="title"
-							   FontSize="40"
-							   Margin="0"
-							   Text="PA LEVEL COMBINER"/>
-					<TextBlock Grid.Row="1"
-							   Classes="caption"
-							   Margin="0"
-							   FontWeight="Bold"
-							   Text="{Binding Version}"/>
 
-					<TextBlock Grid.Row="2"
-							   Classes="caption"
-							   Text="{Binding CurrentSplashText}"/>
-				</Grid>
-			</DockPanel>
+			<Grid Grid.Row="1"
+				  VerticalAlignment="Center"
+				  RowDefinitions="Auto, *">
+				<controls:TitleText Grid.Row="0"
+									x:DataType="palc:ProgramInfo"
+									DataContext="{DynamicResource ProgramInfo}"
+									Title="PA LEVEL COMBINER"
+									Ver="{Binding ProgramVersion}" />
+				
+				<TextBlock Grid.Row="1"
+						   Margin="0 10 0 0"
+						   Text="{Binding CurrentSplashText}" />
+			</Grid>
+			
 		</Grid>
 
 

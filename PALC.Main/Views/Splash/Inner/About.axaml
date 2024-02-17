@@ -4,17 +4,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
 	
+		xmlns:palc="using:PALC"
 		xmlns:v="using:PALC.Main.Views"
 		xmlns:vm="using:PALC.Main.ViewModels.Splash.Inner"
 		xmlns:local="using:PALC.Main.Views.Splash.Inner"
-		xmlns:controls="using:PALC.Main.Views.Templates"
+		xmlns:controls="using:PALC.Common.Views.Templates"
 		xmlns:common="using:PALC.Common.Views"
 
         x:Class="PALC.Main.Views.Splash.Inner.About"
 		x:DataType="vm:AboutVM"
 		x:Name="Window"
         Title="About"
-		Width="480" Height="720"
+		Width="600" Height="720"
 		WindowStartupLocation="CenterScreen">
 
 	<Window.Styles>
@@ -79,20 +80,12 @@
 			  ColumnDefinitions="*">
 			<Image Grid.Row="0"
 				   Source="avares://PALC.Common/Assets/palc_icon.ico"/>
-			<Grid Grid.Row="1"
-				  VerticalAlignment="Center"
-				  RowDefinitions="2*, *">
-				<TextBlock Grid.Row="0"
-							Classes="title"
-							FontSize="40"
-							Margin="0"
-							Text="PA LEVEL COMBINER"/>
-				<TextBlock Grid.Row="1"
-							Classes="caption"
-							Margin="0"
-							FontWeight="Bold"
-							Text="{Binding Version}"/>
-			</Grid>
+			
+			<controls:TitleText Grid.Row="1"
+									x:DataType="palc:ProgramInfo"
+									DataContext="{DynamicResource ProgramInfo}"
+									Title="PA LEVEL COMBINER"
+									Ver="{Binding ProgramVersion}" />
 		</Grid>
 
 
@@ -101,7 +94,7 @@
 
 		<Grid Grid.Row="2"
 			  VerticalAlignment="Center"
-			  RowDefinitions="Auto, Auto"
+			  RowDefinitions="Auto, *"
 			  ColumnDefinitions="*">
 			<TextBlock Grid.Row="0"
 					   FontSize="16">
@@ -116,7 +109,7 @@
 
 			<Grid Grid.Row="1"
 				  VerticalAlignment="Center"
-				  RowDefinitions="Auto, Auto, Auto, Auto"
+				  RowDefinitions="*, *, *, *"
 				  ColumnDefinitions="*">
 				<local:TableItem Grid.Row="0"
 								 Left="LOGO DESIGN"

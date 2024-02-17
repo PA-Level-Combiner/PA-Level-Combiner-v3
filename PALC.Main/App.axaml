@@ -1,6 +1,9 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="PALC.Main.App" 
+             
+			 xmlns:palc="using:PALC"
+			 
+			 x:Class="PALC.Main.App" 
 			 RequestedThemeVariant="Light">
 
     <Application.Styles>
@@ -15,6 +18,8 @@
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceInclude Source="avares://PALC.Common/Views/Styles/Resources/Include.axaml" />
 			</ResourceDictionary.MergedDictionaries>
+			
+			<palc:ProgramInfo x:Key="ProgramInfo" />
 		</ResourceDictionary>
 	</Application.Resources>
 

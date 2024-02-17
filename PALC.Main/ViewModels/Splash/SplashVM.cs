@@ -12,9 +12,6 @@ namespace PALC.Main.ViewModels.Splash;
 
 public partial class SplashVM : ViewModelBase
 {
-    public static SemVersion? Version => ProgramInfo.GetProgramVersion();
-
-
     private readonly Random randomizer = new(DateTime.Now.ToString().GetHashCode());
 
     [ObservableProperty]
@@ -30,7 +27,7 @@ public partial class SplashVM : ViewModelBase
             Stream s = AssetLoader.Open(new Uri("avares://PALC.Main/Assets/splash_texts.txt"));
             string result = new StreamReader(s).ReadToEnd();
 
-            _splashTexts = [.. result.Split('\n')];
+            _splashTexts = [.. result.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)];
             return _splashTexts;
         }
     }
