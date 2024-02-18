@@ -22,4 +22,14 @@
 	<ItemGroup>
 		<ProjectReference Include="..\PALC.Main\PALC.Main.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="assets\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="assets\20_4_4\themes\empty\lmao.txt" />
+	</ItemGroup>
 </Project>

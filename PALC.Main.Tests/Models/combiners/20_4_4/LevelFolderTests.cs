@@ -4,20 +4,7 @@ using PALC.Main.Models.Combiners._20_4_4.LevelComponents;
 
 namespace PALC.Main.Models.Combiners._20_4_4.Tests;
 
-public static class LevelPaths
-{
-    public static string GetLevelPath(string levelFolderName)
-        => Path.Combine(Paths.levelsPath, "20_4_4_combiner_" + levelFolderName);
 
-    public static readonly string normal_input_first = GetLevelPath("normal_input_first");
-    public static readonly string normal_input_second = GetLevelPath("normal_input_second");
-    public static readonly string normal_output = GetLevelPath("normal_output");
-    public static readonly string noprefab_input_first = GetLevelPath("noprefab_input_first");
-    public static readonly string noprefab_input_second = GetLevelPath("noprefab_input_second");
-    public static readonly string noprefab_output = GetLevelPath("noprefab_output");
-
-    public static readonly string blank = GetLevelPath("blank");
-}
 
 
 
@@ -40,7 +27,7 @@ public class LevelFolderTests
         );
 
         // Themes
-        var themes = levelFolder.level.GetThemes(Paths.themesPath);
+        var themes = levelFolder.level.GetThemes(ThemePaths.exists);
         Assert.AreEqual(expectedThemeCount, themes.Count);
 
         if (expectedThemeCount > 0)
@@ -59,13 +46,7 @@ public class LevelFolderTests
     [TestMethod()]
     public void LevelFolderTest_Normal()
     {
-        CompareLevelFolderToSerialized(LevelPaths.normal_output, 1);
-    }
-
-    [TestMethod()]
-    public void LevelFolderTest_NoPrefab()
-    {
-        CompareLevelFolderToSerialized(LevelPaths.noprefab_output, 1);
+        CompareLevelFolderToSerialized(LevelPaths.output, 1);
     }
 
     [TestMethod()]
