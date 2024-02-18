@@ -1,4 +1,4 @@
-# PA-Level Combiner v3
+# PA Level Combiner v3
 The 3rd edition of the PA Level Combiner.
 
 A program that combines two levels of the same song into one.
