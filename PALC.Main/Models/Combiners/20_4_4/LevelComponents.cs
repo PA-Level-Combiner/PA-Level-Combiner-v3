@@ -171,6 +171,9 @@ namespace PALC.Main.Models.Combiners._20_4_4.LevelComponents
 
             [JsonProperty(Order = 1)]
             public required string x { get; set; }
+
+            [JsonProperty(Order = 2)]
+            public string? ct { get; set; }
         }
     }
     public class Level : level.Root, IJsonConverter<Level> {
