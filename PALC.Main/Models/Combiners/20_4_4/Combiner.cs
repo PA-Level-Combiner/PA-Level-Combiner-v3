@@ -19,21 +19,6 @@ public class IncludeOptions
 
 public class _20_4_4_Combiner(LevelFolder levelFolderSource, IncludeOptions include_options) : Combiner<LevelFolder, Level>
 {
-    private static readonly Random rnd = new();
-    private static readonly List<string> idChars = [
-        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
-        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
-        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-        "~", "!", "@", "#", "$", "%", "^", "&", "*", "_", "+", "{", "}", "|", ":", "<", ">", "?", ",", ".", "/", ";", "'", "[", "]",
-        "▓", "▒", "░", "▐", "▆", "▉",
-        "☰", "☱", "☲", "☳", "☴", "☵", "☶", "☷",
-        "►", "▼", "◄",
-        "▬", "▩", "▨", "▧", "▦", "▥", "▤", "▣", "▢", "□", "■", "¤",
-        "ÿ", "ò", "è", "µ", "¶", "™", "ß", "Ã", "®", "¾", "ð", "¥", "œ", "⁕",
-        "(", "◠", "‿", "◠", "✿", ")"
-    ];
-
-
     private static readonly Version _PA_Version = Versions._20_4_4;
     public override Version GetPAVersion() => _PA_Version;
 
@@ -90,16 +75,6 @@ public class _20_4_4_Combiner(LevelFolder levelFolderSource, IncludeOptions incl
         if (combined.level.prefabs.Count == 0) combined.level.prefabs = null;
         if (combined.level.prefab_objects.Count == 0) combined.level.prefab_objects = null;
         if (combined.level.ed.markers.Count == 0) combined.level.ed.markers = null;
-
-        // regenerate ids
-        foreach (var obj in combined.level.beatmap_objects)
-        {
-            List<string> newIdChars = [];
-            for (int i = 0; i < 16; i++)
-                newIdChars.Add(idChars[rnd.Next(idChars.Count)]);
-
-            obj["id"] = string.Join("", newIdChars);
-        }
 
 
         return combined;
