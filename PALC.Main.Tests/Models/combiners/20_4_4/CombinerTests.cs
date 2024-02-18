@@ -11,10 +11,12 @@ public class CombinerTests
     [TestMethod()]
     public void CombineTest_Normal()
     {
-        var level1 = new LevelFolder(LevelPaths.normal_input_first);
-        var level2 = Level.FromFile(Path.Combine(LevelPaths.normal_input_second, "level.lsb"));
+        var level1 = new LevelFolder(LevelPaths.input_first);
+        var level2 = Level.FromFile(Path.Combine(LevelPaths.input_second, "level.lsb"));
 
-        var output = new _20_4_4_Combiner(level1, new IncludeOptions()).Combine(new List<Level> { level2 });
+        var expectedOutput = new LevelFolder(LevelPaths.output);
+
+        LevelFolder output = new _20_4_4_Combiner(level1, new IncludeOptions()).Combine(new List<Level> { level2 });
 
         Assert.AreEqual(level1.audioPath, output.audioPath);
 
@@ -22,40 +24,39 @@ public class CombinerTests
         // This unit test only checks for length, not the objects itself.
         // Should probably fix this
         // TODO
+        void AssertList<T>(Func<LevelFolder, List<T>?> listFunc)
         {
-            static void AssertList<T>(List<T> list, int expectedCount)
-            {
-                Assert.AreEqual(expectedCount, list.Count);
-            }
-
-            static void AssertOptionalList<T>(List<T>? list, int expectedCount)
-            {
-                Assert.IsNotNull(list);
-                AssertList(list, expectedCount);
-            }
-
-            AssertOptionalList(output.level.prefabs, 2);
-            AssertOptionalList(output.level.prefab_objects, 2);
-            AssertOptionalList(output.level.ed.markers, 2);
-            AssertList(output.level.beatmap_objects, 2);
-            AssertList(output.level.checkpoints, 3);
-
-            var events = output.level.events;
-
-            List<List<Dictionary<string, object>>> eventKfsNoTheme = new()
-            {
-                events.pos, events.zoom, events.rot, events.shake,
-                events.chroma, events.bloom, events.vignette, events.lens, events.grain
-            };
-
-            foreach (var eventKfs in eventKfsNoTheme)
-                AssertList(eventKfs, 3);
-
-            AssertList(events.theme, 3);
+            Assert.AreEqual(listFunc(output)?.Count, listFunc(expectedOutput)?.Count);
         }
 
+        void AssertOptionalList<T>(Func<LevelFolder, List<T>?> listFunc)
+        {
+            Assert.IsNotNull(listFunc(output));
+            AssertList(listFunc);
+        }
 
-        var outputThemes = output.level.GetThemes(Paths.themesPath);
+        AssertOptionalList(x => x.level.prefabs);
+        AssertOptionalList(x => x.level.prefab_objects);
+        AssertOptionalList(x => x.level.ed.markers);
+        AssertList(x => x.level.beatmap_objects);
+        AssertList(x => x.level.checkpoints);
+
+        var events = output.level.events;
+
+        AssertList(x => x.level.events.pos);
+        AssertList(x => x.level.events.zoom);
+        AssertList(x => x.level.events.rot);
+        AssertList(x => x.level.events.shake);
+        AssertList(x => x.level.events.theme);
+        AssertList(x => x.level.events.chroma);
+        AssertList(x => x.level.events.bloom);
+        AssertList(x => x.level.events.vignette);
+        AssertList(x => x.level.events.lens);
+        AssertList(x => x.level.events.grain);
+
+
+
+        var outputThemes = output.level.GetThemes(ThemePaths.exists);
 
 
         Assert.AreEqual(1, outputThemes.Count);
