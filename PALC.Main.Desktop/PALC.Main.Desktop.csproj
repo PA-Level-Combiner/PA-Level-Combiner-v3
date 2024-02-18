@@ -9,7 +9,7 @@
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<Configurations>Debug;Release;Design;Quick Build;Reload Design</Configurations>
 
-		<VersionPrefix>3.0.0</VersionPrefix>
+		<VersionPrefix>3.0.1</VersionPrefix>
 		<VersionSuffix>alpha.1</VersionSuffix>
 
 		<ApplicationIcon>palc_icon.ico</ApplicationIcon>
