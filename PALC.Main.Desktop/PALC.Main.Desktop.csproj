@@ -10,7 +10,7 @@
 		<Configurations>Debug;Release;Design;Quick Build;Reload Design</Configurations>
 
 		<VersionPrefix>3.0.1</VersionPrefix>
-		<VersionSuffix>alpha.1</VersionSuffix>
+		<VersionSuffix>rc.1</VersionSuffix>
 
 		<ApplicationIcon>palc_icon.ico</ApplicationIcon>
 	</PropertyGroup>
